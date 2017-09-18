@@ -1,0 +1,18 @@
+/* INDEX PAGE STYLINGS */
+ul.items{
+    padding-bottom: 10px;
+}
+.inner-item-panel{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+/* DASHBOARD STYLING */
+.dashboard .top{
+    margin-top: 40px;
+}
+.dashboard .add-new-list{
+    padding: 20px;
+}
+

@@ -1,0 +1,21 @@
+{
+  "name": "assets",
+  "authors": [
+    "gr1d99 <gideonkimutai9@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "3",
+    "font-awesome": "fontawesome#^4.7.0"
+  }
+}
