@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="sign-up">
+
+    <div class="modal fade" id="signinModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Sign in</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <blockquote>
+                        All the fields are required
+                    </blockquote>
+
+                    <form style="margin-left: auto; margin-right: auto">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon username-addon">
+                                    <span class=""><i class="fa fa-user"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="id_username" placeholder="Username">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span><i class="fa fa-lock"></i></span>
+                                </div>
+                                <input type="password" class="form-control" id="id_password1" placeholder="Password">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Sign in</button>
+
+                        <span class="pull-right">Need help? <a href="#">Forgot Pasword</a></span>
+
+                        </form>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+
+{% endblock content %}

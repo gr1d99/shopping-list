@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/bower_components/bootstrap/dist/css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/bower_components/font-awesome/css/font-awesome.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/app/themes/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/app/css/style.css') }}">
+</head>
+<body>
+
+{% include 'includes/navbar.html' %}
+
+{% block content %}
+
+{% endblock content %}
+
+<script type="application/javascript" src="{{ url_for('static', filename='assets/bower_components/jquery/dist/jquery.js') }}"></script>
+<script type="application/javascript" src="{{ url_for('static', filename='assets/bower_components/bootstrap/dist/js/bootstrap.js') }}"></script>
+<script type="application/javascript" src="{{ url_for('static', filename='assets/app/js/main.js') }}"></script>
+<script>
+
+</script>
+</body>
+</html>
