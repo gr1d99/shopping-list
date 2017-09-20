@@ -1,24 +1,39 @@
-import unittest
+from flask_testing import TestCase
 from shopping_app import app
 
 
-class ViewsTest(unittest.TestCase):
-    """
-    This testcase will is a passing test and it will test if the status
-    code of the response returned is 200 OK
-    """
+class ShoppingAppTest(TestCase):
 
-    def setUp(self):
-        self.app = app.test_client()
+    """This TestCase will test various functionalities of the application"""
+    def create_app(self):
+        app.config['TESTING'] = True
+        return app
 
-    def test_views(self):
-        index = self.app.get('/')
-        dashboard = self.app.get('/dashboard')
-        login = self.app.get('/login')
-        register = self.app.get('/register')
+    #----------Templated-------------#
 
-        self.assertEqual(index.status_code, 200)
-        self.assertEqual(dashboard.status_code, 200)
-        self.assertEqual(login.status_code, 200)
-        self.assertEqual(register.status_code, 200)
-        self.assertEqual(1, 1)
+    def test_index_template(self):
+        """
+        test whether the index.html template is the one used
+        :return: True, False
+        """
+        app.test_client().get('/')
+        self.assert_template_used('index.html')
+
+    def test_login_template(self):
+        """
+        test whether the login.html template is the one used
+        :return: True, False
+        """
+        app.test_client().get('/login')
+        self.assert_template_used('login.html')
+
+    def test_dashboard_template(self):
+        """
+        test whether the index.html template is the one used
+        :return: True, False
+        """
+        app.test_client().get('/dashboard')
+        self.assert_template_used('dashboard.html')
+
+
+
