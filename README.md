@@ -19,6 +19,8 @@ share the shopping lists with others.
 > > - add create a shopping list through the dashboard.
 > > - view created shopping list by clicking on the view button.
 
+**NB:** This application has no database yet!.
+
 Screenshots
 ===========
 >## Home Page
