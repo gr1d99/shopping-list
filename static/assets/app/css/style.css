@@ -16,3 +16,11 @@ ul.items{
     padding: 20px;
 }
 
+/* SHOPPING LIST */
+#shopping-list-form{
+    width: 100%;
+}
+
+.shl-view, .shl-edit, .shl-share{
+  padding-right: 10px
+}
