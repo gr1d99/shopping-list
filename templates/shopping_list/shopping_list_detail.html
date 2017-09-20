@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+    <div class="container well">
+
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3><span><i class="fa fa-list"></i></span> {{ list_name }}</h3>
+        </div>
+
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Check</th>
+                    <th>Item</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in obj %}
+                    <tr>
+                        <td><input type="checkbox" class="checkbox"/></td>
+                        <td>{{ item }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="panel-footer text-center">
+            <a href="#" class="btn btn-success btn-lg btn-block">Save changes</a>
+        </div>
+    </div>
+
+    </div>
+
+
+{% endblock content %}
