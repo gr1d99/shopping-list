@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
+<div class="container" xmlns="http://www.w3.org/1999/html">
     <div class="dashboard">
         <div class="panel panel-primary">
 
@@ -18,30 +18,15 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active"><a href="#dashboard" aria-controls="dashboard" role="tab" data-toggle="tab"><span><i class="fa fa-dashboard"></i> </span>Dashboard</a></li>
-                                <li role="presentation"><a href="#shopping-list" aria-controls="shopping-list" role="tab" data-toggle="tab"><span><i class="fa fa-list"></i></span> My shopping list</a></li>
                             </ul>
 
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade in active" id="dashboard">
-                                    <div class="row">
-                                        <div class="top"></div>
-                                        <div class="col-md-4">
 
-                                            <div class="thumbnail text-center add-new-list">
-                                                <label class="label label-info">
-                                                    <span><i class="fa fa-plus"></i> </span> Add new list
-                                                </label>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div role="tabpanel" class="tab-pane fade" id="shopping-list">
-
-                                    <div class="thumbnail">
+                                    <div class="">
                                         <table class="table table-bordered">
-                                            <caption>My Shopping lists <span class="badge">3</span></caption>
+                                            <caption>My Shopping lists <span class="badge">{{ shopping_list|count }}</span></caption>
                                             <thead>
                                             <tr>
                                                 <th>Shopping list ID</th>
@@ -53,52 +38,50 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>#1</td>
-                                                <td>Birthday Shopping list</td>
-                                                <td>12</td>
-                                                <td>12/09/2017</td>
-                                                <td>12/09/2017</td>
-                                                <td>
-                                                    <span><a href="#"><i class="fa fa-eye text-info"></i></a> </span> |
-                                                    <span><a href="#"><i class="fa fa-edit text-info"></i></a> </span> |
-                                                    <span><a href="#"><i class="fa fa-share text-success"></i></a></span> |
-                                                    <span><a href="#"><i class="fa fa-trash text-danger"></i></a> </span>
+                                            {% for list in shopping_list %}
+                                                <tr>
+                                                    <td>#{{ loop.index }}</td>
+                                                    <td>{{ list }}</td>
+                                                    <td>{{ shopping_list[list]|count }}</td>
+                                                    <td>12/09/2017</td>
+                                                    <td>12/09/2017</td>
+                                                    <td>
+                                                        <span class="shl-view">
+                                                            <a class="btn btn-default btn-xs" href="{{ url_for('shopping-list-detail', name=list) }}"><i class="fa fa-eye text-info"></i></a>
+                                                        </span>
+                                                        <span class="shl-edit">
+                                                            <a class="btn btn-default btn-xs" href="#"><i class="fa fa-edit text-info"></i></a>
+                                                        </span>
+                                                        <span class="shl-share">
+                                                            <a class="btn btn-default btn-xs" href="#"><i class="fa fa-share text-success"></i></a>
+                                                        </span>
+                                                        <span class="shl-delete pull-right">
+                                                            <form method="post" action="{{ url_for('remove-single-item') }}" class="form-inline">
+                                                                <input type="hidden" name="sl_name" value="{{ list }}">
+                                                                <button type="submit" class="btn btn-default btn-xs">
+                                                                    <span>
+                                                                        <i class="fa fa-trash text-danger"></i>
+                                                                    </span>
+                                                                </button>
+                                                            </form>
+                                                        </span>
 
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>#2</td>
-                                                <td>Birthday Shopping list</td>
-                                                <td>12</td>
-                                                <td>12/09/2017</td>
-                                                <td>12/09/2017</td>
-                                                <td>
-                                                    <span><a href="#"><i class="fa fa-eye text-info"></i></a> </span> |
-                                                    <span><a href="#"><i class="fa fa-edit text-info"></i></a> </span> |
-                                                    <span><a href="#"><i class="fa fa-share text-success"></i></a></span> |
-                                                    <span><a href="#"><i class="fa fa-trash text-danger"></i></a> </span>
-
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>#3</td>
-                                                <td>Birthday Shopping list</td>
-                                                <td>12</td>
-                                                <td>12/09/2017</td>
-                                                <td>12/09/2017</td>
-                                                <td>
-                                                    <span><a href="#"><i class="fa fa-eye text-info"></i></a> </span> |
-                                                    <span><a href="#"><i class="fa fa-edit text-info"></i></a> </span> |
-                                                    <span><a href="#"><i class="fa fa-share text-success"></i></a></span> |
-                                                    <span><a href="#"><i class="fa fa-trash text-danger"></i></a> </span>
-
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
                                             </tbody>
                                         </table>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-offset-4">
+
+                                        <div class="thumbnail text-center add-new-list">
+                                            <label class="label label-default">
+                                                <a href="{{ url_for('create-shopping-list') }}"><span><i class="fa fa-plus"></i> </span> Add new list</a>
+                                            </label>
+                                        </div>
+
+                                    </div>
                                     </div>
 
                                 </div>
