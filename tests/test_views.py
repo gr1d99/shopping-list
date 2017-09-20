@@ -9,7 +9,7 @@ class ShoppingAppTest(TestCase):
         app.config['TESTING'] = True
         return app
 
-    #----------Templated-------------#
+    # ----------TemplatesTest------------- #
 
     def test_index_template(self):
         """
@@ -33,6 +33,14 @@ class ShoppingAppTest(TestCase):
         :return: True, False
         """
         app.test_client().get('/dashboard')
+        self.assert_template_used('dashboard.html')
+
+    def test_register_template(self):
+        """
+        test whether the register.html template is the one used
+        :return: True, False
+        """
+        app.test_client().get('/register')
         self.assert_template_used('dashboard.html')
 
 
