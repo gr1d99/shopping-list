@@ -3,5 +3,4 @@ python:
   - 3.6.2
 script: pytest --cov=. tests
 after_success:
-  - coverage report
   - coveralls
