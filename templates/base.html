@@ -12,6 +12,19 @@
 
 {% include 'includes/navbar.html' %}
 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <p>{{ message }}</p>
+        </div>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
 {% block content %}
 
 {% endblock content %}
