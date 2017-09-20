@@ -21,4 +21,4 @@ class ViewsTest(unittest.TestCase):
         self.assertEqual(dashboard.status_code, 200)
         self.assertEqual(login.status_code, 200)
         self.assertEqual(register.status_code, 200)
-        self.assertEqual(1, 2)
+        self.assertEqual(1, 1)
