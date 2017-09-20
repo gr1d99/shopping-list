@@ -1,0 +1,7 @@
+{
+  "tests/test_views.py::ShoppingAppTest::test_all_templates_are_used": true,
+  "tests/test_views.py::ShoppingAppTest::test_register_template": true,
+  "tests/test_views.py::ViewsTest::test_index_view": true,
+  "tests/test_views.py::ViewsTest::test_user_in_session": true,
+  "tests/test_views.py::ViewsTest::test_views": true
+}
