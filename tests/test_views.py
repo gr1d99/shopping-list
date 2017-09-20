@@ -1,5 +1,5 @@
 import unittest
-from app.shopping_app import app
+from shopping_app import app
 
 
 class ViewsTest(unittest.TestCase):
@@ -21,3 +21,4 @@ class ViewsTest(unittest.TestCase):
         self.assertEqual(dashboard.status_code, 200)
         self.assertEqual(login.status_code, 200)
         self.assertEqual(register.status_code, 200)
+        self.assertEqual(1, 2)
