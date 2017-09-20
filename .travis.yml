@@ -1,7 +1,7 @@
 language: python
 python:
   - 3.6.2
-script: - pytest --cov=. tests
+script: pytest --cov=. tests
 after_success:
-  - - coverage report
+  - coverage report
   - coveralls
