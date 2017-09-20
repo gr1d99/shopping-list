@@ -1,8 +1,6 @@
 language: python
 python:
   - 3.6.2
-script:
-  - coverage run --source=app -m pytest
-  - coverage report
+script: py.test
 after_success:
   - coveralls
