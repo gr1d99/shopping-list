@@ -5,6 +5,20 @@
 Is a flask powered web application that allows users to keep track of their shopping items and also allows a user to 
 share the shopping lists with others.
 
+## Usage
+> 1. Clone this repo `git clone https://github.com/gr1d99/shopping-list.git`
+> 2. Change your current directory to `shopping-list`
+> 3. On your terminal type `git checkout challenge-2`
+> 4. Create a virtual enviroment `virtualenv --python=python3 env` then activate it `source env/bin/activate`
+> 5. Make the run bash script executable by `chmod +x run.sh` 
+> 6. Install requirements `pip3 install -r requirements.txt`
+> 7. Run the app `. run.sh`
+> 8. Yeah you did it!.
+> 9. Th app does not have much functionality. What you can do for now is
+> > - Login
+> > - add create a shopping list through the dashboard.
+> > - view created shopping list by clicking on the view button.
+
 Screenshots
 ===========
 >## Home Page
