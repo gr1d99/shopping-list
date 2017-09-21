@@ -22,7 +22,7 @@ app.add_url_rule('/shopping-list-detail/', view_func=ShoppingListDetail.as_view(
 app.add_url_rule('/remove-shopping-list', view_func=RemoveShoppingList.as_view('remove-shopping-list'))
 
 # app conf
-app.secret_key = config['SECRET_KEY']['KEY']
+app.secret_key = os.environ.get('SECRET_KEY', config['SECRET_KEY']['KEY'])
 
 
 if __name__ == '__main__':
