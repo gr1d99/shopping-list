@@ -1,6 +1,6 @@
 language: python
 python:
   - 3.6.2
-script: pytest --cov=. tests
+script: nosetests --with-coverage
 after_success:
   - coveralls
