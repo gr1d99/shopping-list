@@ -4,6 +4,7 @@ coverage==4.0.3
 coveralls==1.2.0
 Flask==0.12.2
 Flask-Testing
+flask_script
 Flask-SQLAlchemy
 gunicorn==19.7.1
 itsdangerous==0.24
