@@ -11,12 +11,23 @@ share the shopping lists with others.
 > 3. On your terminal type `git checkout challenge-2`
 > 4. Create a virtual enviroment `virtualenv --python=python3 env` then activate it `source env/bin/activate`
 > 5. Install requirements `pip3 install -r requirements.txt`
-> 6. Run the app `. run.sh`
+> 6. Generate your SECRET_KEY by running `python manage.py generate_secret` then add `app.secret_key = config['SECRET_KEY']['KEY']` in the main `shopping_app.py` file
+> such that it looks likes
+> ```python
+>    # app conf
+>    app.secret_key = config['SECRET_KEY']['KEY']
+>    
+>   
+>    if __name__ == '__main__':
+>        app.run()
+>
+>```
 > 7. Yeah you did it!.
 > 8. Th app does not have much functionality. What you can do for now is
 > > - Login
 > > - add create a shopping list through the dashboard.
 > > - view created shopping list by clicking on the view button.
+
 
 **NB:** This application has no database yet!.
 
