@@ -22,11 +22,15 @@ share the shopping lists with others.
 >        app.run()
 >
 >```
-> 7. Yeah you did it!.
-> 8. Th app does not have much functionality. What you can do for now is
+> 7. Reset database by `python manage.py resetdb` 
+> 8. Finally deploy your web app `python manage.py runserver` 
+>  The app does not have much functionality. What you can do for now is
+> > - Register
 > > - Login
 > > - add create a shopping list through the dashboard.
 > > - view created shopping list by clicking on the view button.
+> > - delete created shopping lists
+> > - view created shopping list at the home page
 
 
 **NB:** This application has no database yet!.
