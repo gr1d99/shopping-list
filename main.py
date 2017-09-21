@@ -1,9 +1,8 @@
 import configparser
 import os
 from flask import Flask
-from views import (IndexView, AddItemsView, DashboardView,
-                   LoginView, Logout, RegisterView,
-                   RemoveShoppingList, ShoppingListDetail)
+from shopping_app.views import (IndexView, AddItemsView, DashboardView,
+                                LoginView, Logout, RegisterView, RemoveShoppingList, ShoppingListDetail)
 
 BASEDIR = os.path.dirname(os.path.abspath(__file__))
 

@@ -1,8 +1,8 @@
-from db.models import SHOPPING_FILE, USERS_FILE
+from shopping_app.db.models import SHOPPING_FILE, USERS_FILE
 import json
 from flask_script import Manager
-from shopping_app import app
-from utils.helpers import secret_key_gen
+from main import app
+from shopping_app.utils.helpers import secret_key_gen
 
 manager = Manager(app)
 
@@ -10,6 +10,7 @@ manager = Manager(app)
 @manager.command
 def generate_secret():
     secret_key_gen()
+
 
 @manager.command
 def resetdb():
