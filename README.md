@@ -10,11 +10,10 @@ share the shopping lists with others.
 > 2. Change your current directory to `shopping-list`
 > 3. On your terminal type `git checkout challenge-2`
 > 4. Create a virtual enviroment `virtualenv --python=python3 env` then activate it `source env/bin/activate`
-> 5. Make the run bash script executable by `chmod +x run.sh` 
-> 6. Install requirements `pip3 install -r requirements.txt`
-> 7. Run the app `. run.sh`
-> 8. Yeah you did it!.
-> 9. Th app does not have much functionality. What you can do for now is
+> 5. Install requirements `pip3 install -r requirements.txt`
+> 6. Run the app `. run.sh`
+> 7. Yeah you did it!.
+> 8. Th app does not have much functionality. What you can do for now is
 > > - Login
 > > - add create a shopping list through the dashboard.
 > > - view created shopping list by clicking on the view button.
