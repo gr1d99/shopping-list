@@ -1,5 +1,6 @@
 
 blinker
+codeclimate-test-reporter
 coverage==4.0.3
 coveralls==1.2.0
 Flask==0.12.2
