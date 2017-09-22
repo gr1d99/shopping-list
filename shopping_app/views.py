@@ -154,6 +154,8 @@ class CreateShoppingList(View):
             prev_data.append(shoppinglist.__dict__)
             session['shopping_list'] = prev_data
 
+            return render_template(url_for('dashboard'))
+
         return render_template(
             'shopping_list/create_shopping_list.html',
             is_auth=is_auth)
