@@ -11,7 +11,8 @@ share the shopping lists with others.
 > 3. On your terminal type `git checkout challenge-2`
 > 4. Create a virtual enviroment `virtualenv --python=python3 env` then activate it `source env/bin/activate`
 > 5. Install requirements `pip3 install -r requirements.txt`
-> 6. Generate your SECRET_KEY by running `python manage.py generate_secret` then add `app.secret_key = config['SECRET_KEY']['KEY']` in the main `shopping_app.py` file
+> 6. Generate your SECRET_KEY by running `python manage.py generate_secret`, the command will generate an **`secret.ini`** file that will contain the apps secret key, 
+> after running the command, add `app.secret_key = config['SECRET_KEY']['KEY']` in the **`main.py`** file.
 > such that it looks likes
 > ```python
 >    # app conf
@@ -22,8 +23,8 @@ share the shopping lists with others.
 >        app.run()
 >
 >```
-> 7. Reset database by `python manage.py resetdb` 
-> 8. Finally deploy your web app `python manage.py runserver` 
+> after making the changes save your file. **DEBUG** is set to `True` but you may change it.
+> 7. Finally deploy your web app by running the command `python manage.py runserver` 
 >  The app does not have much functionality. What you can do for now is
 > > - Register
 > > - Login
