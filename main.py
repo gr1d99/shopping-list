@@ -7,7 +7,7 @@ from shopping_app.views import (IndexView, AddItemsView, CreateShoppingList, Das
 BASEDIR = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
-config = configparser.ConfigParser(interpolation=True)
+config = configparser.RawConfigParser()
 config.read(BASEDIR + '/secret.ini')
 
 # app urls
