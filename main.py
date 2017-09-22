@@ -7,7 +7,7 @@ from shopping_app.views import (IndexView, AddItemsView, CreateShoppingList, Das
 BASEDIR = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
-config = configparser.ConfigParser()
+config = configparser.ConfigParser(interpolation=False)
 config.read(BASEDIR + '/secret.ini')
 
 # app urls
@@ -22,6 +22,7 @@ app.add_url_rule('/remove-shopping-list', view_func=RemoveShoppingList.as_view('
 
 # app conf
 app.debug = True
+app.secret_key = config['SECRET_KEY']['KEY']
 
 if __name__ == '__main__':
     app.run()
