@@ -1,5 +1,5 @@
 import unittest
-from shopping_app.db import ShoppingItem
+from shopping_app.db.models import ShoppingItem
 
 
 class TestShoppingItem(unittest.TestCase):
