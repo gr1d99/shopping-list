@@ -6,3 +6,5 @@
 $("#signinModal, #signupModal").modal({
     show: true
 });
+
+$("#shl-item, #shl-price, #shl-ntb").addClass('text-center');
