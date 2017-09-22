@@ -22,7 +22,7 @@ def secret_key_gen():
                              for _ in range(50)])
     with open(filepath, 'w') as secret_file:
         secret_file.write(
-            '[SECRET_KEY]\nKEY: %(key)s' % dict(key=generated_key)
+            '[SECRET_KEY]\nKEY= %(key)s' % dict(key=generated_key)
         )
 
     print('Find your secret key at %(path)s' % dict(path=filepath))
