@@ -17,12 +17,12 @@ def json_serial(obj):
 
 
 def secret_key_gen():
-    filepath = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + '/secret.ini'
+    filepath = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + '/secret.txt'
     generated_key = ''.join([random.SystemRandom().choice(string.ascii_letters + string.digits + string.punctuation)
                              for _ in range(50)])
     with open(filepath, 'w') as secret_file:
         secret_file.write(
-            '[SECRET_KEY]\nKEY= %(key)s' % dict(key=generated_key)
+            '%(key)s' % dict(key=generated_key)
         )
 
     print('Find your secret key at %(path)s' % dict(path=filepath))
