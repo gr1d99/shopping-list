@@ -18,7 +18,7 @@ def json_serial(obj):
 
 def secret_key_gen():
     filepath = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + '/secret.txt'
-    generated_key = ''.join([random.SystemRandom().choice(string.ascii_letters + string.digits + string.punctuation)
+    generated_key = ''.join([random.SystemRandom().choice(string.ascii_letters + string.digits)
                              for _ in range(50)])
     with open(filepath, 'w') as secret_file:
         secret_file.write(
