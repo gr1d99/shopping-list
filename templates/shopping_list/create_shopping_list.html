@@ -7,20 +7,75 @@
             <div class="col-lg-6 col-sm-offset-3 well">
                 <div class="create-shopping-list">
                     <h5 class="panel-heading text-center">Add New Shopping List</h5>
-                    <form method="post" id="shopping-list-form" class="">
-                        <table class="table table-hover">
+                    <form method="post" id="shopping-list-form" class="form-horizontal" action="{{ url_for('create-shopping-list') }}">
+                        <table class="table">
                             <caption class="text-center">
                                 <div class="form-group">
-                                    <input type="text" class="form-control text-center" name="shl-name" placeholder="Shopping List Name"/>
+                                    <input type="text" class="form-control text-center" required name="shl-name" placeholder="Shopping List Name"/>
                                 </div>
                             </caption>
                             <thead>
                             <tr class="text-center">
-                                <th id="shl-item">Item 1</th>
+                                <th id="shl-item">Item</th>
                                 <th id="shl-price">Price</th>
                                 <th id="shl-ntb">Needs to buy</th>
                             </tr>
                             </thead>
+                            <tbody>
+                            <tr>
+                                <td id="">
+                                    <div class="form-group">
+                                        <input type="text" name="item_1_name" class="form-control shl-input" required placeholder="item 1"/>
+                                    </div>
+                                </td>
+                                <td id="shl-input">
+                                    <div class="form-group">
+                                        <input type="number" name="item_1_price" class="form-control shl-input" step=".01" required placeholder="item 1 price"/>
+                                    </div>
+                                </td>
+                                <td id="shl-input">
+                                    <div class="form-group shl-input">
+                                        <input type="checkbox"  name="item_1_check" class="checkbox"/>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td id="">
+                                    <div class="form-group">
+                                        <input type="text" name="item_2_name" class="form-control shl-input" required placeholder="item 2"/>
+                                    </div>
+                                </td>
+                                <td id="shl-input">
+                                    <div class="form-group">
+                                        <input type="number" name="item_2_price" class="form-control shl-input" required step=".01" placeholder="item 2 price"/>
+                                    </div>
+                                </td>
+                                <td id="shl-input">
+                                    <div class="form-group shl-input">
+                                        <input type="checkbox"  name="item_2_check" class="checkbox"/>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td id="">
+                                    <div class="form-group">
+                                        <input type="text" name="item_3_name" class="form-control shl-input" placeholder="item 3" required/>
+                                    </div>
+                                </td>
+                                <td id="shl-input">
+                                    <div class="form-group">
+                                        <input type="number" name="item_3_price" class="form-control shl-input" step=".01" placeholder="item 3 price" required/>
+                                    </div>
+                                </td>
+                                <td id="shl-input">
+                                    <div class="form-group shl-input">
+                                        <input type="checkbox"  name="item_3_check" class="checkbox"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
                         </table>
                         <input type="submit" class="btn btn-success btn-sm btn-block" value="Submit"/>
                     </form>

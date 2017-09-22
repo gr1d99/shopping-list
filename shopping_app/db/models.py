@@ -26,22 +26,21 @@ class ShoppingItem(object):
 class ShoppingList(object):
     """Shopping List class"""
 
-    def __init__(self, name):
+    def __init__(self, name: str, date_added: str):
         self.name = name
+        self.date_added = date_added
         self.items = []
 
-    def add(self, item):
+    def add(self, *args):
         """
         Add shopping items to the shopping list
         :return:
         """
-        if not isinstance(item, ShoppingItem):
-
-            raise TypeError("the item you added should be an instance of "
-                            "%(instance)s, instead found %(errtype)s" % dict(instance=ShoppingItem.__class__,
-                                                                         errtype=item.__class__.__name__))
-
-        self.items.append(item)
+        if len(args) > 0:
+            for item in args:
+                self.items.append(item.__dict__)
+            return
+        return
 
     def __repr__(self):
         return self.__str__()
@@ -50,4 +49,21 @@ class ShoppingList(object):
         return "<%(name)s obj>" % dict(name=self.name)
 
 
+class ShoppingListManager(object):
+    """A manager class that will ease retrival and storage of all shopping list"""
+    def __init__(self):
+        self.shopping_lists = []
+
+    def all(self):
+        """
+        yield all shopping lists
+        :return:
+        """
+        return (shl for shl in self.shopping_lists)
+
+    def add_shl(self, *args):
+        for shl in args:
+            self.shopping_lists.append(shl.__dict__)
+
+        return
 

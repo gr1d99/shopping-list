@@ -24,3 +24,14 @@ ul.items{
 .shl-view, .shl-edit, .shl-share{
   padding-right: 10px
 }
+
+.shl-input{
+  padding-left: 50px;
+}
+
+.table {
+    border-bottom:0px !important;
+}
+.table th, .table td {
+    border: 1px !important;
+}

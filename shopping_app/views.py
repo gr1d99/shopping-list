@@ -2,7 +2,7 @@ import datetime
 
 from flask import flash, redirect, render_template, request, session, url_for
 from flask.views import View
-from .db.models import ShoppingList, ShoppingItem
+from .db.models import ShoppingList, ShoppingItem, ShoppingListManager
 from .utils.helpers import json_serial
 
 
@@ -74,7 +74,11 @@ class IndexView(View):
         if 'user' in session:
             is_auth = True
 
-        return render_template('index.html', is_auth=is_auth)
+        shopping_list = []
+        if 'shopping_list' in session:
+            shopping_list = session.get('shopping_list')
+
+        return render_template('index.html', is_auth=is_auth, shopping_list=shopping_list)
 
 
 class DashboardView(View):
@@ -90,9 +94,7 @@ class DashboardView(View):
         if 'user' in session:
             is_auth = True
 
-        user = session.get('user')
-
-        return render_template('dashboard.html', is_auth=is_auth)
+        return render_template('dashboard.html', is_auth=is_auth, shopping_list=session.get('shopping_list'))
 
 
 class CreateShoppingList(View):
@@ -111,9 +113,43 @@ class CreateShoppingList(View):
             is_auth = True
 
         if request.method == 'POST':
-            name = request.form.get('name')
+            # TODO Add WTForms
+            name = request.form.get('shl-name')  # shopping list name
 
-        return render_template('shopping_list/create_shopping_list.html', is_auth=is_auth)
+            item1_name = request.form.get('item_1_name')
+            item1_price = request.form.get('item_1_price')
+            item1_check = bool(request.form.get('item_1_check') == 'on')
+
+            item2_name = request.form.get('item_2_name')
+            item2_price = request.form.get('item_2_price')
+            item2_check = bool(request.form.get('item_2_check') == 'on')
+
+            item3_name = request.form.get('item_3_name')
+            item3_price = request.form.get('item_3_price')
+            item3_check = bool(request.form.get('item_3_check') == 'on')
+
+            today = datetime.datetime.today().strftime('%Y-%m-%w')
+
+            # create shopping items first
+            shoppingitem1 = ShoppingItem(item1_name, item1_price, item1_check)
+            shoppingitem2 = ShoppingItem(item2_name, item2_price, item2_check)
+            shoppingitem3 = ShoppingItem(item3_name, item3_price, item3_check)
+
+            # create a shopping list
+            shoppinglist = ShoppingList(name, date_added=today)
+            shoppinglist.add(shoppingitem1, shoppingitem2, shoppingitem3)
+
+            # add stored data into the session
+            if 'shopping_list' not in session:  # TODO lear more on serialization of objects
+                session['shopping_list'] = [shoppinglist.__dict__]
+
+            prev_data = session.get('shopping_list')
+            prev_data.append(shoppinglist.__dict__)
+            session['shopping_list'] = prev_data
+
+        return render_template(
+            'shopping_list/create_shopping_list.html',
+            is_auth=is_auth)
 
 
 class AddItemsView(View):
@@ -167,15 +203,21 @@ class UpdateShoppingListItem(View):
 
 
 class RemoveShoppingList(View):
-    methods = ['POST', ]
+    methods = ['GET', ]
 
     def dispatch_request(self):
-        user = session.get('user')
         name = request.args.get('name')
-        rm = ShoppingList().delete_shopping_list(user, name)
-        if rm:
-            flash('Shopping list deleted')
-            return redirect(url_for('dashboard'))
+        lists = session.get('shopping_list')
+        index = 0
+        target = None
+        for l in lists:
+            if l.get('name') == name:
+                target = l
+                break
+            index += 1
+        if target:
+            lists.remove(target)
+            session['shopping_list'] = lists
+            flash('%s removed from shopping list')
 
-        flash('try again')
-        return redirect(url_for('remove-shopping-list', name=name))
+        return redirect(url_for('dashboard'))
