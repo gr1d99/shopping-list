@@ -13,19 +13,13 @@ share the shopping lists with others.
 > 5. Install requirements `pip3 install -r requirements.txt`
 > 6. Generate your SECRET_KEY by running `python manage.py generate_secret`, 
 > the command will generate a **`secret.ini`** file that will contain the apps secret key,
-> after running the command, 
-> add `app.secret_key = config['SECRET_KEY']['KEY']` in the **`main.py`** file.
-> such that it looks likes
-> ```python
->    # app conf
->    app.secret_key = config['SECRET_KEY']['KEY']
->    
->   
->    if __name__ == '__main__':
->        app.run()
->
->```
-> after making the changes save your file. **DEBUG** is set to `True` but you may change it.
+> after running the command, copy the generated text and use it to
+> set enviroment variable `SECRET_KEY` so that it will be available to the app configuration.
+> eg.
+> ```bash
+> $ export SECRET_KEY=<generated key goes here>
+> ```
+> **DEBUG** is set to `True` but you may change it.
 > 7. Finally deploy your web app by running the command `python manage.py runserver` 
 >  The app does not have much functionality. What you can do for now is
 > > - Register
