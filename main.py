@@ -22,6 +22,8 @@ app.add_url_rule('/remove-shopping-list', view_func=RemoveShoppingList.as_view('
 
 # app conf
 app.debug = True
+app.secret_key = config['SECRET_KEY']['KEY']
+
 
 if __name__ == '__main__':
     app.run()

@@ -20,6 +20,10 @@ class RegisterView(View):
             password1 = request.form.get('password1')
             password2 = request.form.get('password2')
 
+            if not (username or password1 or password2):
+                flash('Hey!! do not submit empty data')
+                return redirect(url_for('register'))
+
             # validate password match
             if password1 == password2:
                 session['user'] = username  # add user to session
