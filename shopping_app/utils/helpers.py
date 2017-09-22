@@ -26,3 +26,4 @@ def secret_key_gen():
         )
 
     print('Find your secret key at %(path)s' % dict(path=filepath))
+

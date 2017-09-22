@@ -2,8 +2,35 @@ import datetime
 
 from flask import flash, redirect, render_template, request, session, url_for
 from flask.views import View
-from .db.models import ShoppingList, User
+from .db.models import ShoppingList, ShoppingItem
 from .utils.helpers import json_serial
+
+
+class RegisterView(View):
+    methods = ['GET', 'POST']
+
+    def dispatch_request(self):
+        if 'user' in session:
+            flash('you are already logged in!')
+            return redirect(url_for('index'))
+
+        if request.method == 'POST':
+            # get required data
+            username = request.form.get('username')
+            password1 = request.form.get('password1')
+            password2 = request.form.get('password2')
+
+            # validate password match
+            if password1 == password2:
+                session['user'] = username  # add user to session
+
+                flash('Success! you are now a member')
+                return redirect(url_for('index'))  # redirect to index
+
+            flash('Error!! passwords do not match')
+            redirect(url_for('register'))
+
+        return render_template('register.html')
 
 
 class LoginView(View):
@@ -17,72 +44,12 @@ class LoginView(View):
 
         if request.method == 'POST':
             username = request.form.get('username')
-            password = request.form.get('password')
-            auth = User()
-
-            if not auth.authenticate(username, password):
-                flash('Username and password do not match, try again!')
-                return redirect(url_for('login'))
 
             session['user'] = username
             flash('You are logged in')
             return redirect(url_for('index'))
 
         return render_template('login.html')
-
-
-class IndexView(View):
-    """User home page view"""
-
-    methods = ['GET', ]
-
-    def dispatch_request(self):
-        all_shopping_lists = ShoppingList().all()
-        return render_template('index.html', shls=all_shopping_lists)
-
-
-class DashboardView(View):
-    methods = ['GET', ]
-
-    def dispatch_request(self):
-        if 'user' not in session:
-            flash('you must be logged in, or create an account if you dont have one')
-            return redirect(url_for('login'))
-
-        user = session.get('user')
-        shopping_list = ShoppingList().filter_user_shopping_list(user)
-
-        return render_template('dashboard.html', shopping_list=shopping_list)
-
-
-class RegisterView(View):
-    methods = ['GET', 'POST']
-
-    def dispatch_request(self):
-        if 'user' in session:
-            flash('you are already logged in!')
-            return redirect(url_for('index'))
-
-        if request.method == 'POST':
-            username = request.form.get('username')
-            password1 = request.form.get('password1')
-            password2 = request.form.get('password2')
-
-            if password1 == password2:  # validate passwords
-                u = User()
-                if not u.check_user(username):
-                    u.create_user(username, password1)
-                    session['user'] = username  # add user to session
-                    flash('Successfully registered')
-                    redirect(url_for('index'))  # redirect to homepage
-
-                flash('user with that username already exists, try another name')
-                return redirect(url_for('register'))
-
-            flash('passwords do not match')
-            return redirect(url_for('register'))
-
-        return render_template('register.html')
 
 
 class Logout(View):
@@ -95,6 +62,58 @@ class Logout(View):
             return redirect(url_for('index'))
 
         return redirect(url_for('index'))
+
+
+class IndexView(View):
+    """User home page view"""
+
+    methods = ['GET', ]
+
+    def dispatch_request(self):
+        is_auth = False
+        if 'user' in session:
+            is_auth = True
+
+        return render_template('index.html', is_auth=is_auth)
+
+
+class DashboardView(View):
+    methods = ['GET', ]
+
+    def dispatch_request(self):
+        is_auth = False
+
+        if 'user' not in session:  # check if user is logged in
+            flash('you must be logged in, or create an account if you dont have one')
+            return redirect(url_for('login'))
+
+        if 'user' in session:
+            is_auth = True
+
+        user = session.get('user')
+
+        return render_template('dashboard.html', is_auth=is_auth)
+
+
+class CreateShoppingList(View):
+    """Class to create shopping list"""
+
+    methods = ['GET', 'POST']
+
+    def dispatch_request(self):
+        is_auth = False
+
+        if 'user' not in session:  # check if user is logged in
+            flash('you must be logged in, or create an account if you dont have one')
+            return redirect(url_for('login'))
+
+        if 'user' in session:
+            is_auth = True
+
+        if request.method == 'POST':
+            name = request.form.get('name')
+
+        return render_template('shopping_list/create_shopping_list.html', is_auth=is_auth)
 
 
 class AddItemsView(View):
