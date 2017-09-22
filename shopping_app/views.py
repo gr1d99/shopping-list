@@ -101,7 +101,7 @@ class DashboardView(View):
         if 'user' in session:
             is_auth = True
 
-        return render_template('dashboard.html', is_auth=is_auth, shopping_list=session.get('shopping_list'))
+        return render_template('dashboard.html', is_auth=is_auth, shopping_list=shopping_list)
 
 
 class CreateShoppingList(View):
