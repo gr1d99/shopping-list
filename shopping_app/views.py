@@ -67,9 +67,11 @@ class Logout(View):
 class IndexView(View):
     """User home page view"""
 
+
     methods = ['GET', ]
 
     def dispatch_request(self):
+
         is_auth = False
         if 'user' in session:
             is_auth = True
@@ -87,7 +89,7 @@ class DashboardView(View):
     def dispatch_request(self):
         is_auth = False
 
-        shopping_list = None
+        shopping_list = []
 
         if 'shopping_list' in session:
             shopping_list = session.get('shopping_list')
