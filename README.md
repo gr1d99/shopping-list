@@ -12,7 +12,7 @@ share the shopping lists with others.
 > 4. Create a virtual enviroment `virtualenv --python=python3 env` then activate it `source env/bin/activate`
 > 5. Install requirements `pip3 install -r requirements.txt`
 > 6. Generate your SECRET_KEY by running `python manage.py generate_secret`, 
-> the command will generate an **`secret.ini`** file that will contain the apps secret key,
+> the command will generate a **`secret.ini`** file that will contain the apps secret key,
 > after running the command, 
 > add `app.secret_key = config['SECRET_KEY']['KEY']` in the **`main.py`** file.
 > such that it looks likes
