@@ -87,6 +87,11 @@ class DashboardView(View):
     def dispatch_request(self):
         is_auth = False
 
+        shopping_list = None
+
+        if 'shopping_list' in session:
+            shopping_list = session.get('shopping_list')
+
         if 'user' not in session:  # check if user is logged in
             flash('you must be logged in, or create an account if you dont have one')
             return redirect(url_for('login'))
