@@ -44,7 +44,8 @@ class LoginView(View):
 
         if request.method == 'POST':
             username = request.form.get('username')
-            if not username:
+            password = request.form.get('password')
+            if not (username or password):
                 flash('Empty values not allowed')
                 return redirect(url_for('login'))
 
