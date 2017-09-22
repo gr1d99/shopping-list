@@ -1,7 +1,16 @@
 sudo: false
+env:
+  global:
+    - CC_TEST_REPORTER_ID=691c34d3b1c317b024cfa85fdf66a480c4aa52c17fddb74a2d047755209a39af
 language: python
 python:
   - 3.6.2
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script: nosetests --with-coverage
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 after_success:
   - coveralls
