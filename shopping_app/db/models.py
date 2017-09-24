@@ -1,3 +1,24 @@
+from .base import BaseUser
+from ..core.exceptions import UserDoesNotExist
+
+
+class User(BaseUser):
+    """User Model"""
+
+    def __init__(self):
+        super(User, self).__init__()
+        self.users = []
+
+    def create_user(self, username, password, email):
+        self.users.append(self._create_user(username, password, email))
+
+    def get_user_by_username(self, username):
+        for user in self.users:
+            if getattr(user, 'username') == username:
+                return user
+        raise UserDoesNotExist("user with username `%(username)s` not found" % dict(username=username))
+
+
 class ShoppingItem(object):
     def __init__(self, name: str, price: float, checked: bool):
         self.name = name
@@ -66,4 +87,3 @@ class ShoppingListManager(object):
             self.shopping_lists.append(shl.__dict__)
 
         return
-
