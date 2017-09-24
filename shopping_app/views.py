@@ -2,8 +2,11 @@ import datetime
 
 from flask import flash, redirect, render_template, request, session, url_for
 from flask.views import View
-from .db.models import ShoppingList, ShoppingItem, ShoppingListManager
+from .db.models import ShoppingList, ShoppingItem, ShoppingListManager, User
 from .utils.helpers import json_serial
+
+
+u = User()  # initialize user class instance since it will be used across all views
 
 
 class RegisterView(View):
@@ -17,6 +20,7 @@ class RegisterView(View):
         if request.method == 'POST':
             # get required data
             username = request.form.get('username')
+            email = request.form.get('email')
             password1 = request.form.get('password1')
             password2 = request.form.get('password2')
 
@@ -26,9 +30,12 @@ class RegisterView(View):
 
             # validate password match
             if password1 == password2:
+                u.create_user(username, email, password1)
+
                 session['user'] = username  # add user to session
 
                 flash('Success! you are now a member')
+                print(session.get('user'))
                 return redirect(url_for('index'))  # redirect to index
 
             flash('Error!! passwords do not match')
@@ -113,7 +120,7 @@ class DashboardView(View):
 
 
 class CreateShoppingList(View):
-    """Class to create shopping list"""
+    """Class to create shopping list and items"""
 
     methods = ['GET', 'POST']
 
@@ -162,7 +169,7 @@ class CreateShoppingList(View):
             prev_data.append(shoppinglist.__dict__)
             session['shopping_list'] = prev_data
 
-            return render_template(url_for('dashboard'))
+            return redirect(url_for('dashboard'))
 
         return render_template(
             'shopping_list/create_shopping_list.html',
