@@ -7,6 +7,7 @@ from shopping_app.views import (IndexView, AddItemsView, CreateShoppingList, Das
 BASEDIR = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
+app.template_folder = os.path.join(BASEDIR, 'shopping_app/templates')
 config = configparser.RawConfigParser()
 config.read(BASEDIR + '/secret.ini')
 
