@@ -82,7 +82,6 @@ class Logout(View):
 class IndexView(View):
     """User home page view"""
 
-
     methods = ['GET', ]
 
     def dispatch_request(self):
