@@ -1,4 +1,3 @@
-import configparser
 import os
 from flask import Flask
 from shopping_app.views import (IndexView, AddItemsView, CreateShoppingList, DashboardView,
@@ -8,8 +7,6 @@ BASEDIR = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
 app.template_folder = os.path.join(BASEDIR, 'shopping_app/templates')
-config = configparser.RawConfigParser()
-config.read(BASEDIR + '/secret.ini')
 
 # app urls
 app.add_url_rule('/', view_func=IndexView.as_view('index'))
