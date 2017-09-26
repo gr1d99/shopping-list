@@ -3,13 +3,15 @@ import datetime
 from flask import flash, redirect, render_template, request, session, url_for
 from flask.views import View
 from .db.models import ShoppingList, ShoppingItem, ShoppingListManager, User
+from .forms import LoginForm, RegistrationForm
 from .utils.helpers import json_serial
 
 
-u = User()  # initialize user class instance since it will be used across all views
+user = User()  # initialize user class instance since it will be used across all views
 
 
 class RegisterView(View):
+    """A view class to handle """
     methods = ['GET', 'POST']
 
     def dispatch_request(self):
@@ -30,7 +32,7 @@ class RegisterView(View):
 
             # validate password match
             if password1 == password2:
-                u.create_user(username, email, password1)
+                user.create_user(username, email, password1)
 
                 session['user'] = username  # add user to session
 
@@ -49,22 +51,18 @@ class LoginView(View):
     methods = ['GET', 'POST']
 
     def dispatch_request(self):
+        form = LoginForm(request.form)
         if 'user' in session:
             flash('you are already logged in!')
             return redirect(url_for('index'))
 
-        if request.method == 'POST':
-            username = request.form.get('username')
-            password = request.form.get('password')
-            if not (username or password):
-                flash('Empty values not allowed')
-                return redirect(url_for('login'))
+        if request.method == 'POST' and not form.validate():
+            flash('Please check the errors below')
 
-            session['user'] = username
-            flash('You are logged in')
-            return redirect(url_for('index'))
+        username = form.username.data
+        password = form.password.data
 
-        return render_template('login.html')
+        return render_template('login.html', form=form)
 
 
 class Logout(View):
