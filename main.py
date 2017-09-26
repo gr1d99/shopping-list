@@ -7,6 +7,7 @@ BASEDIR = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
 app.template_folder = os.path.join(BASEDIR, 'shopping_app/templates')
+app.static_folder = os.path.join(BASEDIR, 'shopping_app/static')
 
 # app urls
 app.add_url_rule('/', view_func=IndexView.as_view('index'))
