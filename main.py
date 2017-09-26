@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from shopping_app.db.models import User, ShoppingList
 from shopping_app.views import (IndexView, AddItemsView, CreateShoppingList, DashboardView,
                                 LoginView, Logout, RegisterView, RemoveShoppingList, ShoppingListDetail)
 
@@ -8,6 +9,8 @@ BASEDIR = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__)
 app.template_folder = os.path.join(BASEDIR, 'shopping_app/templates')
 app.static_folder = os.path.join(BASEDIR, 'shopping_app/static')
+app.user = User()  # user instance
+app.shopping_list = ShoppingList()  # shopping list instance
 
 # app urls
 app.add_url_rule('/', view_func=IndexView.as_view('index'))

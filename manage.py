@@ -1,4 +1,3 @@
-import json
 from flask_script import Manager
 from main import app
 from shopping_app.utils.helpers import secret_key_gen

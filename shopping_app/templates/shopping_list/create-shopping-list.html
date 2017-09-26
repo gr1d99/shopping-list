@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="col-md-6 col-sm-offset-3">
+            <h3 class="text-center page-header">
+                Create Shopping List
+            </h3>
+
+            <form class="form-horizontal" method="post" action="{{ url_for('create-shopping-list') }}">
+                <div class="form-group">
+                    <label for="shl-name" class="control-label">Shopping List Name</label>
+                    <input type="text" id="shl-name" name='shl-name' class="form-control" required/>
+                </div>
+                <input type="submit" class="btn btn-success btn-block" value="Create Shopping List"/>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock content %}
