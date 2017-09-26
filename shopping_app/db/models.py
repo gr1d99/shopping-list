@@ -12,11 +12,11 @@ class User(BaseUser):
     def create_user(self, username, password, email):
         self.users.append(self._create_user(username, password, email))
 
-    def get_user_by_username(self, username):
+    def check_user(self, username):
         for user in self.users:
             if getattr(user, 'username') == username:
-                return user
-        raise UserDoesNotExist("user with username `%(username)s` not found" % dict(username=username))
+                return True
+        return False
 
 
 class ShoppingItem(object):
