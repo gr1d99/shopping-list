@@ -3,9 +3,11 @@
  */
 'use strict';
 
-$("#signinModal, #signupModal").modal({
-    show: true
+$(document).ready(function () {
+    $("#shl-item, #shl-price").addClass('text-center');
+    $(".shl-input").addClass('text-center');
+    $("#username, #password").addClass('form-control');
 });
 
-$("#shl-item, #shl-price").addClass('text-center');
-$(".shl-input").addClass('text-center');
+document.getElementById('username').placeholder = 'Username';
+document.getElementById('password').placeholder = 'Password';
