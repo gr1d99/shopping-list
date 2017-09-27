@@ -39,22 +39,29 @@ class User(BaseUser):
 class ShoppingItem(object):
     def __init__(self):
         self.name = None
+        self.quantity = None
         self.price = None
         self.checked = None
+        self.total_price = None
 
-    def create(self, name: str, price: float, checked: bool):
+    def create(self, name: str, quantity: int, price: float, checked: bool):
         if not isinstance(name, str):
             raise TypeError("Expected %(name)s to be of type `%(xtype)s" % dict(name=name, xtype=str.__name__))
 
         if not isinstance(price, float):
             raise TypeError("Expected %(price)s to be a float" % dict(price=price))
 
+        if not isinstance(quantity, int):
+            raise TypeError("Expected %(quantity)s to be an int" % dict(quantity=quantity))
+
         if not isinstance(checked, bool):
             raise TypeError("Expected %(checked)s to be a `bool`")
 
         self.name = name
+        self.quantity = quantity
         self.price = price
         self.checked = checked
+        self.total_price = self.quantity * self.price
 
         return True
 
