@@ -21,7 +21,7 @@ ul.items{
     width: 100%;
 }
 
-.shl-view, .shl-edit, .shl-share{
+.shl-view, .shl-edit, .shl-share, .item-edit, .item-delete{
   padding-right: 10px
 }
 
