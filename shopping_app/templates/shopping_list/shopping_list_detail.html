@@ -6,7 +6,7 @@
 
     <div class="container well">
 
-    <div class="col-md-8 col-sm-offset-2">
+    <div class="col-md-12">
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -19,27 +19,49 @@
                 <tr>
                     <th>Needs to buy</th>
                     <th>Item</th>
+                    <th>Quantity</th>
                     <th>Price</th>
+                    <th>Total Price</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for item in obj.get('shl').items %}
                     <tr>
-                        <td><input type="checkbox" class="checkbox"/></td>
-                        <td>{{ item.name }} </td>
-                        <td>{{ item.price }}</td>
                         <td>
-                            <a href="">
+                            <input type="checkbox" class="checkbox" {% if item.checked %} checked {% endif %}/>
+                            <br>
+
+                        <form method="post" action="{{ url_for('mark-item') }}">
+                                <input type="hidden" name="shl-name" value="{{ obj.get('name') }}"/>
+                                <input type="hidden" name="item-name" value="{{ item.name }}"/>
+                                <input type="hidden" name="prev-val" value="{{ item.checked }}"/>
+                                <button type="submit" class="btn  btn-info btn-xs">
+                                    {% if item.checked %}
+                                        <span><i class="fa fa-times"></i> </span>UnMark item
+                                    {% else %}
+                                        <span><i class="fa fa-check"></i> </span>Mark item
+                                    {% endif %}
+                                </button>
+                            </form>
+                        </td>
+                        <td>{{ item.name }} </td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.total_price }}</td>
+                        <td>
+                            <a class="btn btn-default btn-xs" href="">
                                 <span class="text-info item-edit">
                                     <i class="fa fa-edit"></i>
                                 </span>
+                                <small>Edit item</small>
                             </a>
 
-                            <a href="">
+                            <a class="btn btn-xs btn-default" href="">
                                 <span class="text-danger item-delete">
                                     <i class="fa fa-trash"></i>
                                 </span>
+                                <small>Remove item</small>
                             </a>
                         </td>
                     </tr>
@@ -48,14 +70,53 @@
                      <form method="post">
                          <td></td>
                          <td colspan="">
-                             <input type="text" name="item-name" class="form-control" placeholder="Add new item" required/>
+                             {% with item_name_errors = form.item_name.errors  %}
+                                 {% if item_name_errors %}
+                                     <ul class="list-unstyled">
+                                         {% for error in item_name_errors %}
+                                             <li class="form-error">
+                                                 <small>{{ error }}</small>
+                                             </li>
+                                         {% endfor %}
+                                     </ul>
+                                 {% endif %}
+                                 {{ form.item_name }}
+                             {% endwith %}
                          </td>
                          <td colspan="">
-                             <input type="number" step=".01" name="item-price" class="form-control" placeholder="Price" required/>
+                             {% with quantity_errors = form.quantity.errors  %}
+                                 {% if quantity_errors %}
+                                     <ul class="list-unstyled">
+                                         {% for error in quantity_errors %}
+                                             <li class="form-error">
+                                                 <small>{{ error }}</small>
+                                             </li>
+                                         {% endfor %}
+                                     </ul>
+                                 {% endif %}
+                                 {{ form.quantity }}
+                             {% endwith %}
                          </td>
 
+                         <td colspan="">
+                             {% with price_errors = form.price.errors  %}
+                                 {% if price_errors %}
+                                     <ul class="list-unstyled">
+                                         {% for error in price_errors %}
+                                             <li class="form-error">
+                                                 <small>{{ error }}</small>
+                                             </li>
+                                         {% endfor %}
+                                     </ul>
+                                 {% endif %}
+                                 {{ form.price }}
+                             {% endwith %}
+                         </td>
+
+                        <td></td>
+
                          <td colspan="2">
-                             <button type="submit" class="btn btn-primary btn-xs"><span><i class='fa fa-plus'></i></span></button>
+                             <button type="submit" class="btn btn-primary btn-xs"><span><i class='fa fa-plus'></i></span> <small>Add</small></button>
                          </td>
                      </form>
                  </tr>
@@ -63,7 +124,7 @@
             </table>
         </div>
         <div class="panel-footer text-center">
-            <a href="#" class="btn btn-success btn-lg btn-block">Save changes</a>
+            <a href="#" class="btn btn-success btn-lg btn-block">Update Shopping List</a>
         </div>
     </div>
 
