@@ -26,7 +26,7 @@
 
                                     <div class="">
                                         <table class="table table-bordered">
-                                            <caption>My Shopping lists <span class="badge">{{ shopping_list|count }}</span></caption>
+                                            <caption>My Shopping lists <span class="badge">{{ shopping_lists|count }}</span></caption>
                                             <thead>
                                             <tr>
                                                 <th>Shopping list No</th>
@@ -35,16 +35,16 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {% for list in shopping_lists %}
+                                            {% for shl in shopping_lists %}
                                                 <tr>
                                                     <td>#{{ loop.index }}</td>
-                                                    <td>{{ list }}</td>
+                                                    <td>{{ shl.get('name') }}</td>
                                                     <td>
                                                         <span class="shl-view">
-                                                            <a class="btn btn-default btn-xs" href="{{ url_for('shopping-list-detail') }}"><i class="fa fa-eye text-info"></i></a>
+                                                            <a class="btn btn-default btn-xs" href="{{ url_for('shopping-list-detail', name=shl.get('name')) }}"><i class="fa fa-eye text-info"></i></a>
                                                         </span>
                                                         <span class="shl-delete">
-                                                            <a href="{{ url_for('remove-shopping-list', name=list ) }}">
+                                                            <a href="{{ url_for('remove-shopping-list', name=shl.get('name') ) }}">
                                                                 <span>
                                                                     <i class="fa fa-trash text-danger"></i>
                                                                 </span></a>
