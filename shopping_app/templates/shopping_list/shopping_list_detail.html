@@ -50,14 +50,14 @@
                         <td>{{ item.price }}</td>
                         <td>{{ item.total_price }}</td>
                         <td>
-                            <a class="btn btn-default btn-xs" href="">
+                            <a class="btn btn-default btn-xs" href="{{ url_for('update-item', shl_name=obj.get('name'), item_name=item.name ) }}">
                                 <span class="text-info item-edit">
                                     <i class="fa fa-edit"></i>
                                 </span>
                                 <small>Edit item</small>
                             </a>
 
-                            <a class="btn btn-xs btn-default" href="">
+                            <a class="btn btn-xs btn-default" href="{{ url_for('remove-shopping-item', name=obj.get('name'), item_name=item.name ) }}">
                                 <span class="text-danger item-delete">
                                     <i class="fa fa-trash"></i>
                                 </span>
@@ -124,7 +124,7 @@
             </table>
         </div>
         <div class="panel-footer text-center">
-            <a href="#" class="btn btn-success btn-lg btn-block">Update Shopping List</a>
+{#            <a href="#" class="btn btn-success btn-lg btn-block">Update Shopping List</a>#}
         </div>
     </div>
 
