@@ -2,7 +2,8 @@ import os
 from flask import Flask
 from shopping_app.db.models import User, ShoppingItem
 from shopping_app.views import (IndexView, AddItemsView, CreateShoppingList, DashboardView, MarkItemView,
-                                LoginView, Logout, RegisterView, RemoveShoppingList, NewShoppingListDetailView)
+                                LoginView, Logout, RegisterView, RemoveShoppingList, UpdateItemView,
+                                NewShoppingListDetailView, RemoveShoppingItem)
 
 BASEDIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -23,6 +24,8 @@ app.add_url_rule('/create-shopping-list', view_func=CreateShoppingList.as_view('
 app.add_url_rule('/mark-item', view_func=MarkItemView.as_view('mark-item'))
 app.add_url_rule('/shopping-list-detail/', view_func=NewShoppingListDetailView.as_view('shopping-list-detail'))
 app.add_url_rule('/remove-shopping-list', view_func=RemoveShoppingList.as_view('remove-shopping-list'))
+app.add_url_rule('/remove-shopping-item', view_func=RemoveShoppingItem.as_view('remove-shopping-item'))
+app.add_url_rule('/update-item', view_func=UpdateItemView.as_view('update-item'))
 
 # app conf
 app.debug = True
