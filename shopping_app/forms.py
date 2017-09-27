@@ -1,10 +1,17 @@
-from wtforms import Form, BooleanField, StringField, PasswordField, validators
+from wtforms import Form, DecimalField, IntegerField, StringField, PasswordField, validators, ValidationError
 from wtforms.validators import DataRequired, InputRequired
+from .utils.helpers import check_duplicate_item_name
 
 
 class LoginForm(Form):
     username = StringField('username', validators=[InputRequired(), DataRequired()])
     password = PasswordField('password', validators=[InputRequired(), DataRequired()])
+
+
+class CreateShoppingItemForm(Form):
+    item_name = StringField('item-name', validators=[InputRequired()])
+    quantity = IntegerField('quantity', validators=[InputRequired()])
+    price = DecimalField('price', validators=[InputRequired()])
 
 
 class RegistrationForm(Form):
