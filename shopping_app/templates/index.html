@@ -13,9 +13,9 @@
                         <p class="text-primary text-center">This web application allows you to create shopping lists</p>
                         <div class="text-center">
                             {% if is_auth %}
-                                <p><a class="btn btn-sm btn-success" href="{{ url_for('dashboard') }}">Get Started</a></p>
+                                <p><a class="btn btn-sm btn-primary" href="{{ url_for('dashboard') }}">Get Started</a></p>
                             {% else %}
-                                <p><a class="btn btn-sm btn-success" href="{{ url_for('register') }}">Get Started</a></p>
+                                <p><a class="btn btn-sm btn-success" href="{{ url_for('register') }}">Register or Login to get Started</a></p>
                             {% endif %}
                         </div>
                     </div>
