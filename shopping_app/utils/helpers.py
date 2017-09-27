@@ -41,3 +41,13 @@ def get_shl(name):
         if shl.get('name') == name:
             return shl
 
+
+def check_duplicate_item_name(shl_name, item_name):
+    for shl in main.app.shopping_list:
+        if shl.get('name') == shl_name:
+            for item in shl.get('shl').items:
+                if item.name == item_name:
+                    return True
+
+            return False
+
