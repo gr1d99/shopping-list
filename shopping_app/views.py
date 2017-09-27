@@ -4,8 +4,8 @@ import main
 from flask import flash, redirect, render_template, request, session, url_for
 from flask.views import View
 from .db.models import ShoppingList, ShoppingItem, ShoppingListManager, User
-from .forms import LoginForm, RegistrationForm
-from .utils.helpers import json_serial, check_name, get_shl
+from .forms import LoginForm, CreateShoppingItemForm
+from .utils.helpers import json_serial, check_name, get_shl, check_duplicate_item_name
 
 
 class RegisterView(View):
@@ -182,22 +182,59 @@ class NewShoppingListDetailView(View):
     methods = ['GET', 'POST']
 
     def dispatch_request(self):
+        form = CreateShoppingItemForm()
         shl = None
         name = request.args.get('name')
         if check_name(name):
             shl = get_shl(name)
 
         if request.method == 'POST':
-            shl_item = main.app.shopping_item()
-            item_name = request.form.get('item-name')
-            item_price = float(request.form.get('item-price'))
+            form = CreateShoppingItemForm(request.form)
+            if not form.validate():
+                flash(u'Please correct the errors below', 'warning')
 
-            shl_item.create(item_name, item_price, False)
-            shl.get('shl').items.append(shl_item)
+            else:
+                shl_item = main.app.shopping_item()
+                item_name = form.item_name.data
+
+                if check_duplicate_item_name(name, item_name):
+                    flash(u"item with that name already exists", 'warning')
+
+                else:
+                    item_quantity = form.quantity.data
+                    item_price = form.price.data
+                    shl_item.create(item_name, int(item_quantity), float(item_price), False)
+                    shl.get('shl').items.append(shl_item)
+                    flash(u'Item successfully added', 'success')
+                    return redirect(url_for('shopping-list-detail', name=name))
+
         return render_template(
             'shopping_list/shopping_list_detail.html',
-            obj=shl,
-            name=name)
+            obj=shl, name=name, form=form)
+
+
+class MarkItemView(View):
+    """
+    A view to check and uncheck items in a view
+    """
+
+    methods = ['GET', 'POST',]
+
+    def dispatch_request(self):
+        if request.method == 'POST':
+            shl_name, item_name, prev_val = request.form.get('shl-name'), \
+                                            request.form.get('item-name'), \
+                                            request.form.get('prev-val')
+
+            shl = get_shl(shl_name).get('shl')
+            for shl_item in shl.items:
+                if prev_val == 'False':
+                    shl_item.update('checked', True)
+                else:
+                    shl_item.update('checked', False)
+            flash(u'Success!! item updated', 'success')
+            return redirect(url_for('shopping-list-detail', name=shl_name))
+        return redirect(url_for('dashboard'))
 
 
 class UpdateShoppingItemView(View):
@@ -206,7 +243,8 @@ class UpdateShoppingItemView(View):
 
     def dispatch_request(self):
         if request.method == 'POST':
-            shopping_list_name = request.form.get('')
+            shopping_list_name = request.form.get('shl-name')
+            item_name = request.form.get('shl-name')
 
 # class CreateShoppingList(View):
 #     """Class to create shopping list and items"""
