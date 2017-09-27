@@ -177,6 +177,15 @@ class NewShoppingListDetailView(View):
     methods = ['GET', 'POST']
 
     def dispatch_request(self):
+        is_auth = False
+
+        if 'user' not in session:  # check if user is logged in
+            flash('you must be logged in, or create an account if you dont have one')
+            return redirect(url_for('login'))
+
+        if 'user' in session:
+            is_auth = True
+
         form = CreateShoppingItemForm()
         shl = None
         name = request.args.get('name')
@@ -205,7 +214,7 @@ class NewShoppingListDetailView(View):
 
         return render_template(
             'shopping_list/shopping_list_detail.html',
-            obj=shl, form=form)
+            obj=shl, form=form, is_auth=is_auth)
 
 
 class UpdateItemView(View):
