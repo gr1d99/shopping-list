@@ -95,18 +95,13 @@ class IndexView(View):
     methods = ['GET', ]
 
     def dispatch_request(self):
+        print(session)
 
         is_auth = False
         if 'user' in session:
             is_auth = True
-
-        shopping_list = []
-        if 'shopping_list' in session:
-            shopping_list = session.get('shopping_list')
-
         return render_template('index.html',
                                is_auth=is_auth,
-                               shopping_list=shopping_list,
                                title='Home Page')
 
 
@@ -213,6 +208,21 @@ class NewShoppingListDetailView(View):
             obj=shl, name=name, form=form)
 
 
+class UpdateItemView(View):
+    """
+    A view to update each individual item
+    """
+    methods = ['GET', 'POST']
+
+    def dispatch_request(self):
+        shopping_list_name = request.args.get('shl_name')
+        item_name = request.args.get('item_name')
+
+        print(check_name(shopping_list_name))
+
+        return redirect(url_for('shopping-list-detail', name=shopping_list_name))
+
+
 class MarkItemView(View):
     """
     A view to check and uncheck items in a view
@@ -245,62 +255,6 @@ class UpdateShoppingItemView(View):
         if request.method == 'POST':
             shopping_list_name = request.form.get('shl-name')
             item_name = request.form.get('shl-name')
-
-# class CreateShoppingList(View):
-#     """Class to create shopping list and items"""
-#
-#     methods = ['GET', 'POST']
-#
-#     def dispatch_request(self):
-#         is_auth = False
-#
-#         if 'user' not in session:  # check if user is logged in
-#             flash('you must be logged in, or create an account if you dont have one')
-#             return redirect(url_for('login'))
-#
-#         if 'user' in session:
-#             is_auth = True
-#
-#         if request.method == 'POST':
-#             # TODO Add WTForms
-#             name = request.form.get('shl-name')  # shopping list name
-#
-#             item1_name = request.form.get('item_1_name')
-#             item1_price = request.form.get('item_1_price')
-#             item1_check = bool(request.form.get('item_1_check') == 'on')
-#
-#             item2_name = request.form.get('item_2_name')
-#             item2_price = request.form.get('item_2_price')
-#             item2_check = bool(request.form.get('item_2_check') == 'on')
-#
-#             item3_name = request.form.get('item_3_name')
-#             item3_price = request.form.get('item_3_price')
-#             item3_check = bool(request.form.get('item_3_check') == 'on')
-#
-#             today = datetime.datetime.today().strftime('%Y-%m-%w')
-#
-#             # create shopping items first
-#             shoppingitem1 = ShoppingItem(item1_name, item1_price, item1_check)
-#             shoppingitem2 = ShoppingItem(item2_name, item2_price, item2_check)
-#             shoppingitem3 = ShoppingItem(item3_name, item3_price, item3_check)
-#
-#             # create a shopping list
-#             shoppinglist = ShoppingList(name, date_added=today)
-#             shoppinglist.add(shoppingitem1, shoppingitem2, shoppingitem3)
-#
-#             # add stored data into the session
-#             if 'shopping_list' not in session:  # TODO lear more on serialization of objects
-#                 session['shopping_list'] = [shoppinglist.__dict__]
-#
-#             prev_data = session.get('shopping_list')
-#             prev_data.append(shoppinglist.__dict__)
-#             session['shopping_list'] = prev_data
-#
-#             return redirect(url_for('dashboard'))
-#
-#         return render_template(
-#             'shopping_list/create_shopping_list.html',
-#             is_auth=is_auth)
 
 
 class AddItemsView(View):
@@ -341,7 +295,6 @@ class UpdateShoppingList(View):
     methods = ['GET', 'POST']
 
     def dispatch_request(self):
-        flash('not yet implemented')
         return render_template('index.html')
 
 
@@ -354,21 +307,28 @@ class UpdateShoppingListItem(View):
 
 
 class RemoveShoppingList(View):
+    """A view to remove a single shopping list"""
     methods = ['GET', ]
 
     def dispatch_request(self):
         name = request.args.get('name')
-        lists = session.get('shopping_list')
-        index = 0
-        target = None
-        for l in lists:
-            if l.get('name') == name:
-                target = l
-                break
-            index += 1
-        if target:
-            lists.remove(target)
-            session['shopping_list'] = lists
-            flash('%s removed from shopping list')
-
+        shl = get_shl(name)
+        main.app.shopping_list.remove(shl)
+        flash(u'Success!! Shopping List removed', 'success')
         return redirect(url_for('dashboard'))
+
+
+class RemoveShoppingItem(View):
+    """A view to remove shopping item"""
+    methods = ['GET', 'POST']
+
+    def dispatch_request(self):
+        name = request.args.get('name')
+        item_name = request.args.get('item_name')
+        shl_items = get_shl(name).get('shl').items
+        for item in shl_items:
+            if item.name == item_name:
+                shl_items.remove(item)
+                flash(u"Success!! Item succesfully removed", 'success')
+
+        return redirect(url_for('shopping-list-detail', name=name))
