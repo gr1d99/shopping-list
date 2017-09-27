@@ -10,24 +10,55 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h5><span><i class="fa fa-list"></i></span> {{ name }}</h5>
+            <h5><span><i class="fa fa-list"></i></span> {{ obj.get('name') }}</h5>
         </div>
 
         <div class="panel-body">
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Check</th>
+                    <th>Needs to buy</th>
                     <th>Item</th>
+                    <th>Price</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for item in obj.get('shopping_list')[0].get('items') %}
+                {% for item in obj.get('shl').items %}
                     <tr>
                         <td><input type="checkbox" class="checkbox"/></td>
-                        <td>{{ item }}</td>
+                        <td>{{ item.name }} </td>
+                        <td>{{ item.price }}</td>
+                        <td>
+                            <a href="">
+                                <span class="text-info item-edit">
+                                    <i class="fa fa-edit"></i>
+                                </span>
+                            </a>
+
+                            <a href="">
+                                <span class="text-danger item-delete">
+                                    <i class="fa fa-trash"></i>
+                                </span>
+                            </a>
+                        </td>
                     </tr>
                 {% endfor %}
+                 <tr>
+                     <form method="post">
+                         <td></td>
+                         <td colspan="">
+                             <input type="text" name="item-name" class="form-control" placeholder="Add new item" required/>
+                         </td>
+                         <td colspan="">
+                             <input type="number" step=".01" name="item-price" class="form-control" placeholder="Price" required/>
+                         </td>
+
+                         <td colspan="2">
+                             <button type="submit" class="btn btn-primary btn-xs"><span><i class='fa fa-plus'></i></span></button>
+                         </td>
+                     </form>
+                 </tr>
                 </tbody>
             </table>
         </div>
