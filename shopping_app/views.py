@@ -5,7 +5,7 @@ from flask import flash, redirect, render_template, request, session, url_for
 from flask.views import View
 from .db.models import ShoppingList, ShoppingItem, ShoppingListManager, User
 from .forms import LoginForm, RegistrationForm
-from .utils.helpers import json_serial
+from .utils.helpers import json_serial, check_name, get_shl
 
 
 class RegisterView(View):
@@ -41,7 +41,9 @@ class RegisterView(View):
             flash(u'Error!! passwords do not match', 'warning')
             redirect(url_for('register'))
 
-        return render_template('register.html')
+        return render_template(
+            'register.html', title='Register'
+        )
 
 
 class LoginView(View):
@@ -70,7 +72,9 @@ class LoginView(View):
 
             return redirect(url_for('index'))
 
-        return render_template('login.html', form=form)
+        return render_template('login.html',
+                               form=form,
+                               title='Login')
 
 
 class Logout(View):
@@ -100,7 +104,10 @@ class IndexView(View):
         if 'shopping_list' in session:
             shopping_list = session.get('shopping_list')
 
-        return render_template('index.html', is_auth=is_auth, shopping_list=shopping_list)
+        return render_template('index.html',
+                               is_auth=is_auth,
+                               shopping_list=shopping_list,
+                               title='Home Page')
 
 
 class DashboardView(View):
@@ -109,10 +116,7 @@ class DashboardView(View):
     def dispatch_request(self):
         is_auth = False
 
-        shopping_list = []
-
-        if 'shopping_list' in session:
-            shopping_list = session.get('shopping_list')
+        user_shopping_list = main.app.shopping_list
 
         if 'user' not in session:  # check if user is logged in
             flash('you must be logged in, or create an account if you dont have one')
@@ -121,9 +125,12 @@ class DashboardView(View):
         if 'user' in session:
             is_auth = True
 
-        shopping_lists = [ushl.name for ushl in user_shopping_list]
+        shopping_lists = [ushl for ushl in user_shopping_list]
 
-        return render_template('dashboard.html', is_auth=is_auth, shopping_lists=shopping_lists)
+        return render_template('dashboard.html',
+                               is_auth=is_auth,
+                               shopping_lists=shopping_lists,
+                               title='Dashboard')
 
 
 class CreateShoppingList(View):
@@ -132,32 +139,74 @@ class CreateShoppingList(View):
     def dispatch_request(self):
         is_auth = False
 
+        if 'user' not in session:
+            flash(u'Warning!! you must be logged in', 'warning')
+            return redirect(url_for('login'))
+
         if 'user' in session:
             is_auth = True
 
         if request.method == 'POST':
-            print(user.users)
-
             name = request.form.get('shl-name')
-            logged_in_user = session.get('user')
 
-            try:  # force creation of user
-                user.get_user(logged_in_user)
+            # check if shopping list name exists
+            for shl in main.app.shopping_list:
+                if shl.get('name') == name:
+                    flash(u'Shopping list with that name already exists, try another name', 'warning')
+                    return redirect(url_for('create-shopping-list'))
+            try:
+                user = main.app.user.get_user(
+                    session.get('user')
+                )
 
             except Exception:
-                user.create_user(logged_in_user, logged_in_user, '')
+                main.app.user.create_user(session.get('user'), session.get('user'), '')
+                user = main.app.user.get_user(
+                    session.get('user')
+                )
+            check_name(name)
+            today = datetime.datetime.now().strftime("%Y-%m-%w")
+            shl = ShoppingList()
+            shl.create(name, user, today)
+            main.app.shopping_list.append({'name': name, 'shl': shl})
 
-            ShoppingList().create(name, user.get_user(session.get('user')),
-                       datetime.datetime.today().strftime("%Y-%m-%w"))
-
-            user_shopping_list.append(shl)
-
-            flash('Shopping list created')
+            flash(u'Shopping list created', 'success')
             return redirect(url_for('dashboard'))
 
         return render_template(
             'shopping_list/create-shopping-list.html',
-            is_auth=is_auth)
+            is_auth=is_auth, title='Create Shopping List')
+
+
+class NewShoppingListDetailView(View):
+    methods = ['GET', 'POST']
+
+    def dispatch_request(self):
+        shl = None
+        name = request.args.get('name')
+        if check_name(name):
+            shl = get_shl(name)
+
+        if request.method == 'POST':
+            shl_item = main.app.shopping_item()
+            item_name = request.form.get('item-name')
+            item_price = float(request.form.get('item-price'))
+
+            shl_item.create(item_name, item_price, False)
+            shl.get('shl').items.append(shl_item)
+        return render_template(
+            'shopping_list/shopping_list_detail.html',
+            obj=shl,
+            name=name)
+
+
+class UpdateShoppingItemView(View):
+    """A View to only update a single shopping item"""
+    methods = ['GET', 'POST']
+
+    def dispatch_request(self):
+        if request.method == 'POST':
+            shopping_list_name = request.form.get('')
 
 # class CreateShoppingList(View):
 #     """Class to create shopping list and items"""
