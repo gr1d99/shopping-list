@@ -3,16 +3,24 @@
 {% block content %}
 <div class="container index">
     <div class="panel panel-default index-panel">
-        <div class="panel-heading">
-            Added Shopping Lists
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-12 jumbotron">
-                    <h4 class="panel-heading text-center">There are no shopping lists available currently</h4>
-                    <p class="text-primary text-center">Be the first to add yours and share with your friends</p>
-                </div>
+        <div class="jumbotron">
+            <div class="panel-heading">
+                <h2 class="text-center">Shopping List App</h2>
             </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-primary text-center">This web application allows you to create shopping lists</p>
+                        <div class="text-center">
+                            {% if is_auth %}
+                                <p><a class="btn btn-sm btn-success" href="{{ url_for('dashboard') }}">Get Started</a></p>
+                            {% else %}
+                                <p><a class="btn btn-sm btn-success" href="{{ url_for('register') }}">Get Started</a></p>
+                            {% endif %}
+                        </div>
+                    </div>
+            </div>
+        </div>
         </div>
     </div>
 </div>
