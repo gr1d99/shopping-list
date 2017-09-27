@@ -205,7 +205,7 @@ class NewShoppingListDetailView(View):
 
         return render_template(
             'shopping_list/shopping_list_detail.html',
-            obj=shl, name=name, form=form)
+            obj=shl, form=form)
 
 
 class UpdateItemView(View):
