@@ -11,7 +11,6 @@ dominate==2.3.1
 Flask==0.12.2
 Flask-Bootstrap==3.3.7.1
 Flask-Script==2.0.6
-Flask-SQLAlchemy==2.2.2.dev20170919
 Flask-Testing==0.6.2
 gunicorn==19.7.1
 idna==2.6
