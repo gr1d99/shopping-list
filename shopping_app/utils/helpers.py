@@ -2,6 +2,7 @@ import os
 import random
 import string
 from datetime import date, datetime
+import main
 
 
 def random_name():
@@ -26,4 +27,17 @@ def secret_key_gen():
         )
 
     print('Find your secret key at %(path)s' % dict(path=filepath))
+
+
+def check_name(name):
+    for shl in main.app.shopping_list:
+        if shl.get('name') == name:
+            return True
+    return False
+
+
+def get_shl(name):
+    for shl in main.app.shopping_list:
+        if shl.get('name') == name:
+            return shl
 
