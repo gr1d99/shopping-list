@@ -3,7 +3,7 @@
 # shopping-list
 
 Is a flask powered web application that allows users to keep track of their shopping items and also allows a user to 
-share the shopping lists with others.
+share the shopping lists with others, this web application also allows you to mark items that you have already 
 
 ## Usage
 > 1. Clone this repo `git clone https://github.com/gr1d99/shopping-list.git`
