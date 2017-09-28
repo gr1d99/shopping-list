@@ -36,10 +36,31 @@ def check_name(name):
     return False
 
 
+def check_item(sname,iname):
+    if check_name(sname):
+        shl = get_shl(sname)
+        items = shl.get('shl').items
+        for item in items:
+            if item.name == iname:
+                return True
+            break
+        return False
+    return False
+
+
 def get_shl(name):
     for shl in main.app.shopping_list:
         if shl.get('name') == name:
             return shl
+
+
+def get_item(shl_name, item_name):
+    shl = get_shl(shl_name)
+    items = shl.get('shl').items
+    for item in items:
+        if item.name == item_name:
+            return item
+    return False
 
 
 def check_duplicate_item_name(shl_name, item_name):
@@ -51,3 +72,10 @@ def check_duplicate_item_name(shl_name, item_name):
 
             return False
 
+
+def change_shl_name(name, new_name):
+    for shl in main.app.shopping_list:
+        if shl.get('name') == name:
+            shl['name'] = new_name
+            return True
+    return False
