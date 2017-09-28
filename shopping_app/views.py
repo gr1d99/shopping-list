@@ -195,7 +195,7 @@ class ShoppingListDetailView(View):
                 flash(u'Please correct the errors below', 'warning')
 
             else:
-                shl_item = main.app.shopping_item
+                shl_item = main.app.shopping_item()
                 item_name = form.item_name.data
 
                 if check_duplicate_item_name(name, item_name):
