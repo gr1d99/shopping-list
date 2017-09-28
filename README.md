@@ -24,12 +24,11 @@ share the shopping lists with others, this web application also allows you to ma
 >  The app does not have much functionality. What you can do for now is
 > > - Register
 > > - Login
-> > - create/retrieve and delete shopping lists through the dashboard.
-> > - create shopping items.
+> > - create/retrieve/update and delete shopping lists through the dashboard.
+> > - create/retrieve/update and delete shopping items.
 > > - add shopping items to a shopping list.
-> > - view created shopping list by clicking on the view
-> > - delete created shopping lists
-> > - view created shopping list at the home page
+> > - view created shopping list and its items.
+> > - mark and un-mark shopping items.
 
 
 **NB:** This application has no database yet!.
