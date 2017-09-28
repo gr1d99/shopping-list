@@ -98,9 +98,8 @@ class ShoppingList(object):
         if not isinstance(name, str):
             raise TypeError("Expected %(name)s to be an instance of `%(ins)s`" % dict(name=name, ins=str.__name__))
 
-        if not isinstance(added_by, UserDb):
-            raise TypeError("Expected %(added_by)s to be an instance of `%(ins)s`"
-                            % dict(added_by=added_by, ins=User.__name__))
+        if not isinstance(added_by, str):
+            raise TypeError("Expected %(added_by)s to be an instance of `%(ins)s`" % dict(added_by=added_by, ins=str.__name__))
 
         if not isinstance(date_added, str):
             raise TypeError("Expected %(date_added)s to be an instance of `%(ins)s`"
@@ -123,6 +122,7 @@ class ShoppingList(object):
                     raise TypeError("Expected %(item)s to be an instance of `%(ins)s" %
                                     dict(item=item, ins=ShoppingItem.__name__))
                 self.items.append(item)
+                return True
             return
         return
 
@@ -144,21 +144,3 @@ class ShoppingList(object):
     def __str__(self):
         return "<%(name)s obj>" % dict(name=self.name)
 
-
-class ShoppingListManager(object):
-    """A manager class that will ease retrival and storage of all shopping list"""
-    def __init__(self):
-        self.shopping_lists = []
-
-    def all(self):
-        """
-        yield all shopping lists
-        :return:
-        """
-        return (shl for shl in self.shopping_lists)
-
-    def add_shl(self, *args):
-        for shl in args:
-            self.shopping_lists.append(shl.__dict__)
-
-        return
