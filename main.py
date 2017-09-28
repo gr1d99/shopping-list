@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.template_folder = os.path.join(BASEDIR, 'shopping_app/templates')
 app.static_folder = os.path.join(BASEDIR, 'shopping_app/static')
 app.users = User()  # user instance
-app.shopping_item = ShoppingItem()  # initialize shopping item
+app.shopping_item = ShoppingItem  # initialize shopping item
 app.shopping_list = []  # create an empty list that will hold shopping list instances
 
 # app urls
