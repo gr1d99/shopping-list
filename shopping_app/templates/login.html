@@ -23,9 +23,11 @@
                                     <span class=""><i class="fa fa-user"></i></span>
                                 </div>
                                 {% if form.username.errors %}
-                                    {% for error in form.username.errors %}
-                                        <small>{{ error }}</small>
-                                    {% endfor %}
+                                    <ul>
+                                        {% for error in form.username.errors %}
+                                            <li><small>{{ error }}</small></li>
+                                        {% endfor %}
+                                    </ul>
                                 {% endif %}
                                 {{ form.username }}
                             </div>
@@ -37,9 +39,11 @@
                                     <span><i class="fa fa-lock"></i></span>
                                 </div>
                                 {% if form.password.errors %}
-                                    {% for error in form.password.errors %}
-                                        <small>{{ error }}</small>
-                                    {% endfor %}
+                                    <ul>
+                                        {% for error in form.password.errors %}
+                                            <li><small>{{ error }}</small></li>
+                                        {% endfor %}
+                                    </ul>
                                 {% endif %}
                                 {{ form.password }}
                             </div>
@@ -47,7 +51,7 @@
 
                         <input type="submit" class="btn btn-success" value="Sign in">
 
-                        <span class="pull-right">Need help? <a href="#">Forgot Pasword</a></span>
+                        <span class="pull-right">Create an account now <a href="{{ url_for('register') }}">Register</a></span>
 
                         </form>
             </div><!-- /.modal-content -->
