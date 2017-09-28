@@ -50,7 +50,7 @@
                         <td>{{ item.price }}</td>
                         <td>{{ item.total_price }}</td>
                         <td>
-                            <a class="btn btn-default btn-xs" href="{{ url_for('update-item', shl_name=obj.get('name'), item_name=item.name ) }}">
+                            <a class="btn btn-default btn-xs" href="{{ url_for('update-item', sname=obj.get('name'), iname=item.name ) }}">
                                 <span class="text-info item-edit">
                                     <i class="fa fa-edit"></i>
                                 </span>
