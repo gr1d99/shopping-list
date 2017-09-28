@@ -143,20 +143,23 @@ class CreateShoppingListView(View):
 
         if request.method == 'POST':
             form = CreateShoppingListForm(request.form)
-            name = form.name.data
+            if form.validate():
+                name = form.name.data
 
-            # check if shopping list name exists
-            if not check_name(name):
-                user = session.get('user')
-                today = datetime.datetime.now().strftime("%Y-%m-%w")
-                shl = ShoppingList()
-                shl.create(name, user, today)
-                main.app.shopping_list.append({'name': name, 'shl': shl})
-                flash(u'Shopping list created', 'success')
-                return redirect(url_for('dashboard'))
+                # check if shopping list name exists
+                if not check_name(name):
+                    user = session.get('user')
+                    today = datetime.datetime.now().strftime("%Y-%m-%w")
+                    shl = ShoppingList()
+                    shl.create(name, user, today)
+                    main.app.shopping_list.append({'name': name, 'shl': shl})
+                    flash(u'Shopping list created', 'success')
+                    return redirect(url_for('dashboard'))
 
-            flash(u'Shopping list with that name already exists, '
-                  u'try another name', 'warning')
+                flash(u'Shopping list with that name already exists, '
+                      u'try another name', 'warning')
+
+            flash(u'Correct the errors', 'warning')
 
         return render_template('shopping_list/create-shopping-list.html', is_auth=is_auth,
                                title='Create Shopping List', form=form)
