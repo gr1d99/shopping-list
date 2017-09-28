@@ -8,7 +8,7 @@ share the shopping lists with others, this web application also allows you to ma
 ## Usage
 > 1. Clone this repo `git clone https://github.com/gr1d99/shopping-list.git`
 > 2. Change your current directory to `shopping-list`
-> 3. On your terminal type `git checkout challenge-2`
+> 3. On your terminal type `git checkout develop`
 > 4. Create a virtual enviroment `virtualenv --python=python3 env` then activate it `source env/bin/activate`
 > 5. Install requirements `pip3 install -r requirements.txt`
 > 6. Generate your SECRET_KEY by running `python manage.py generate_secret`, 
@@ -24,8 +24,10 @@ share the shopping lists with others, this web application also allows you to ma
 >  The app does not have much functionality. What you can do for now is
 > > - Register
 > > - Login
-> > - add create a shopping list through the dashboard.
-> > - view created shopping list by clicking on the view button.
+> > - create/retrieve and delete shopping lists through the dashboard.
+> > - create shopping items.
+> > - add shopping items to a shopping list.
+> > - view created shopping list by clicking on the view
 > > - delete created shopping lists
 > > - view created shopping list at the home page
 
