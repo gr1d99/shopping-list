@@ -41,7 +41,14 @@
                                                     <td>{{ shl.get('name') }}</td>
                                                     <td>
                                                         <span class="shl-view">
-                                                            <a class="btn btn-default btn-xs" href="{{ url_for('shopping-list-detail', name=shl.get('name')) }}"><i class="fa fa-eye text-info"></i></a>
+                                                            <a class="btn btn-default btn-xs" href="{{ url_for('shopping-list-detail', name=shl.get('name')) }}">
+                                                                <i class="fa fa-eye text-info"></i>
+                                                            </a>
+                                                        </span>
+                                                        <span class="shl-edit">
+                                                            <a class="btn btn-default btn-xs" href="{{ url_for('update-shopping-list', name=shl.get('name')) }}">
+                                                                <i class="fa fa-pencil text-info"></i>
+                                                            </a>
                                                         </span>
                                                         <span class="shl-delete">
                                                             <a href="{{ url_for('remove-shopping-list', name=shl.get('name') ) }}">
