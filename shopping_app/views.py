@@ -31,9 +31,12 @@ class RegisterView(View):
                 email = form.email.data
                 password1 = form.password.data
 
-                main.app.user.create_user(username, password1, email)
-                flash(u'Success! you may now login using your username and password', 'success')
-                return redirect(url_for('index'))
+                if not main.app.users.check_user(username):  # check username is already taken
+                    main.app.users.create_user(username, password1, email)
+                    flash(u'Success! you may now login using your username and password', 'success')
+                    return redirect(url_for('index'))
+
+                flash(u'Username already taken', 'warning')
 
             flash(u'Please correct the errors below', 'warning')
 
@@ -47,6 +50,7 @@ class LoginView(View):
     methods = ['GET', 'POST']
 
     def dispatch_request(self):
+        print(main.app.users.users)
         if 'user' in session:
             flash(u'you are already logged in!', 'info')
             return redirect(url_for('index'))
@@ -58,7 +62,7 @@ class LoginView(View):
                 username = form.username.data
                 password = form.password.data
 
-                if main.app.user.validate_user(username, password):
+                if main.app.users.validate_user(username, password):
                     session['user'] = username
                     flash(u'Success!! you are now logged in', 'success')
                     return redirect(url_for('index'))
@@ -105,8 +109,7 @@ class DashboardView(View):
 
     def dispatch_request(self):
         is_auth = False
-
-        user_shopping_list = main.app.shopping_list
+        username = None
 
         if 'user' not in session:  # check if user is logged in
             flash('you must be logged in, or create an account if you dont have one')
@@ -114,10 +117,13 @@ class DashboardView(View):
 
         if 'user' in session:
             is_auth = True
+            username = session.get('user')
 
-        shopping_lists = [ushl for ushl in user_shopping_list]
+        owner = session.get('user')
+        user_shopping_list = [ushl for ushl in main.app.shopping_list if owner == ushl.get('shl').added_by]
 
-        return render_template('dashboard.html', is_auth=is_auth, shopping_lists=shopping_lists, title='Dashboard')
+        return render_template('dashboard.html', is_auth=is_auth, shopping_lists=user_shopping_list, title='Dashboard',
+                               username=username)
 
 
 class CreateShoppingListView(View):
@@ -141,23 +147,14 @@ class CreateShoppingListView(View):
 
             # check if shopping list name exists
             if not check_name(name):
-                try:
-                    user = main.app.user.get_user(
-                        session.get('user')
-                    )
-
-                except Exception:
-                    main.app.user.create_user(session.get('user'), session.get('user'), '')
-                    user = main.app.user.get_user(
-                        session.get('user')
-                    )
+                user = session.get('user')
                 today = datetime.datetime.now().strftime("%Y-%m-%w")
                 shl = ShoppingList()
                 shl.create(name, user, today)
                 main.app.shopping_list.append({'name': name, 'shl': shl})
-
                 flash(u'Shopping list created', 'success')
                 return redirect(url_for('dashboard'))
+
             flash(u'Shopping list with that name already exists, '
                   u'try another name', 'warning')
 
@@ -195,7 +192,7 @@ class ShoppingListDetailView(View):
                 flash(u'Please correct the errors below', 'warning')
 
             else:
-                shl_item = main.app.shopping_item()
+                shl_item = main.app.shopping_item
                 item_name = form.item_name.data
 
                 if check_duplicate_item_name(name, item_name):
@@ -250,7 +247,7 @@ class UpdateShoppingListView(View):
             flash(u'Shopping list name changed successfully', 'success')
             return redirect(url_for('dashboard'))
 
-        return render_template('shopping_list/shopping-list-edit.html', form=form)
+        return render_template('shopping_list/shopping-list-edit.html', form=form, name=name)
 
 
 class MarkItemView(View):
@@ -258,7 +255,7 @@ class MarkItemView(View):
     A view to check and uncheck items in a view
     """
 
-    methods = ['GET', 'POST',]
+    methods = ['GET', 'POST', ]
 
     def dispatch_request(self):
         if request.method == 'POST':
@@ -299,6 +296,8 @@ class UpdateShoppingItemView(View):
 
         name = request.args.get('sname')  # name of the shopping list
         item_name = request.args.get('iname')
+
+        print(name)
 
         if not check_name(name) or not check_item(name, item_name):
             # check if the requested shopping list or item exists
@@ -365,16 +364,6 @@ class AddItemsView(View):
         return render_template('shopping_list/create_shopping_list.html')
 
 
-class ShoppingListDetail(View):
-    methods = ['GET', ]
-
-    def dispatch_request(self):
-        name = request.args.get('name')  # name of the shopping list the user wants
-        user = session['user']
-        obj = ShoppingList().filter_user_shopping_list(user, name)[0]
-        return render_template('shopping_list/shopping_list_detail.html', obj=obj, name=name)
-
-
 class UpdateShoppingList(View):
     methods = ['GET', 'POST']
 
@@ -390,7 +379,7 @@ class UpdateShoppingListItem(View):
         return render_template('index.html')
 
 
-class RemoveShoppingList(View):
+class RemoveShoppingListView(View):
     """A view to remove a single shopping list"""
     methods = ['GET', ]
 
@@ -402,7 +391,7 @@ class RemoveShoppingList(View):
         return redirect(url_for('dashboard'))
 
 
-class RemoveShoppingItem(View):
+class RemoveShoppingItemView(View):
     """A view to remove shopping item"""
     methods = ['GET', 'POST']
 
