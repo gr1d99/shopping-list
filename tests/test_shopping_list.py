@@ -6,37 +6,69 @@ class TestShoppingItem(unittest.TestCase):
     """This test case will test the User model class"""
 
     def setUp(self):
-        self.db = ShoppingItem
-        self.items = {'name': 'Grocery', 'price': 10.0, 'checked': True}
-        self.model_attributes = ['update']
+        self.item = ShoppingItem()
+        self.items = {'name': 'Grocery', 'quantity': 10, 'price': 10.0, 'checked': True}
 
-    def test_model_attributes(self):
-        for attr in self.model_attributes:
-            self.assertTrue(hasattr(self.db, attr))
+    def test_item_creation(self):
+        some_item = self.item
+        items = self.items
+        status = some_item.create(items.pop('name'), items.pop('quantity'), items.pop('price'), items.pop('checked'))
+        self.assertTrue(status)
 
-    def test_is_of_class_type(self):
-        self.assertTrue(isinstance(self.db, type))
+    def test_update_method(self):
+        some_item = self.item
+        items = self.items
+        some_item.create(items.pop('name'), items.pop('quantity'), items.pop('price'), items.pop('checked'))
+        self.assertTrue(some_item.update('name', 'Cabbage'))
 
-    def tearDown(self):
-        del self.db
-        del self.items
+    def test_total_price(self):
+        some_item = self.item
+        items = self.items
+        some_item.create(items.pop('name'), 10, 100.00, items.pop('checked'))
+        self.assertEqual(some_item.total_price, 1000.00)
 
 
 class TestShoppingList(unittest.TestCase):
     def setUp(self):
-        user = User()
-        user.create_user('gideon', 'gideon', '')
         self.db = ShoppingList()
-        self.user_instance = user.get_user('gideon')
 
-    def test_args_validation(self):  # test whether arguments passed are validated
-        self.assertRaises(TypeError, self.db.create, 1, 'user', 'today')  # test first arg
-        self.assertRaises(TypeError, self.db.create, 'Cabbages', 'user', 'today')  # test second arg
-        self.assertRaises(TypeError, self.db.create, 1, self.user_instance, 'today')  # test third arg TODO
+    def test_first_arg_type_validation(self):  # test whether the first argument is validates
+        self.assertRaises(TypeError, self.db.create, 1, 'user', 'today')  # test for type error
+
+    def test_second_arg_type_validation(self):  # test whether the second argument is validates
+        self.assertRaises(TypeError, self.db.create, 'Cabbages', 1, '19-09-2017')  # test second arg raises type error
+
+    def test_third_arg_type_validation(self):  # test whether the second argument is validates
+        self.assertRaises(TypeError, self.db.create, 'Cabbages', 'Gideon', 1)  # test for type error
 
     def test_shopping_list_creation(self):
-        status = self.db.create('Grocery', self.user_instance, '')
+        status = self.db.create('Grocery', 'Gideon', '19-09-2017')
         self.assertTrue(status)
+
+    def test_update_shopping_list(self):
+        some_list = self.db
+        status = some_list.create('Grocery', 'Admin', '19-07-2017')
+        some_list.update('name', 'Vegetables')
+        self.assertTrue(status)
+
+    def test_old_value_is_updated(self):
+        list_name = 'Grocery'
+        some_list = self.db
+        status = some_list.create(list_name, 'Admin', '19-07-2017')
+        some_list.update('name', 'Vegetables')
+        self.assertTrue(list_name != some_list.name)
+
+    def test_add_items(self):
+        some_item = ShoppingItem()
+        some_item.create('Vegetable', 10, 10.0, True)
+        some_list = ShoppingList()
+        some_list.create('Grocery', 'Gideon', '19-09-2017')
+        self.assertTrue(some_list.add_items(some_item))
+
+    def test_raise_type_error(self):
+        some_list = ShoppingList()
+        some_list.create('Grocery', 'Gideon', '19-09-2017')
+        self.assertRaises(TypeError, some_list.add_items, 'some item')
 
 if __name__ == '__main__':
     unittest.main()
