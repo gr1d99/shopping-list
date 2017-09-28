@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="col-md-6 col-sm-offset-3">
+        <form method="post">
+            <table class="table table-bordered">
+                <caption>
+                    <h5 class="text-center">Update {{ item_name }}</h5>
+                </caption>
+                <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Item Quantity</th>
+                    <th>Item Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ form.item_name }}</td>
+                    <td>{{ form.quantity }}</td>
+                    <td>{{ form.price }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+</div>
+
+{% endblock content %}
