@@ -32,7 +32,7 @@ class TestShoppingList(unittest.TestCase):
     def test_args_validation(self):  # test whether arguments passed are validated
         self.assertRaises(TypeError, self.db.create, 1, 'user', 'today')  # test first arg
         self.assertRaises(TypeError, self.db.create, 'Cabbages', 'user', 'today')  # test second arg
-        self.assertRaises(TypeError, self.db.create, 1, self.user_instance, 'today')  # test third arg
+        self.assertRaises(TypeError, self.db.create, 1, self.user_instance, 'today')  # test third arg TODO
 
     def test_shopping_list_creation(self):
         status = self.db.create('Grocery', self.user_instance, '')
