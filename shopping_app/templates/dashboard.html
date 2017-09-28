@@ -6,7 +6,7 @@
         <div class="panel panel-primary">
 
             <div class="panel-heading">
-                <span class="fa fa-dashboard"></span> Dashboard
+                <span class="fa fa-dashboard"></span> {{ username|capitalize }} Dashboard
             </div>
 
             <div class="panel-body">
@@ -31,6 +31,7 @@
                                             <tr>
                                                 <th>Shopping list No</th>
                                                 <th>Name</th>
+                                                <th>Date Created</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -39,6 +40,7 @@
                                                 <tr>
                                                     <td>#{{ loop.index }}</td>
                                                     <td>{{ shl.get('name') }}</td>
+                                                    <td>{{ shl.get('date_added') }}</td>
                                                     <td>
                                                         <span class="shl-view">
                                                             <a class="btn btn-default btn-xs" href="{{ url_for('shopping-list-detail', name=shl.get('name')) }}">
