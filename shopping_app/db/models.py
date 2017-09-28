@@ -42,7 +42,6 @@ class ShoppingItem(object):
         self.quantity = None
         self.price = None
         self.checked = None
-        self.total_price = None
 
     def create(self, name: str, quantity: int, price: float, checked: bool):
         if not isinstance(name, str):
@@ -61,9 +60,11 @@ class ShoppingItem(object):
         self.quantity = quantity
         self.price = price
         self.checked = checked
-        self.total_price = self.quantity * self.price
-
         return True
+
+    @property
+    def total_price(self):
+        return self.quantity * self.price
 
     def update(self, field, val):
         """
@@ -124,6 +125,18 @@ class ShoppingList(object):
                 self.items.append(item)
             return
         return
+
+    def update(self, field, val):
+        """
+        Update shopping list field followed by a new val
+        :param field: name
+        :param val: new value to replace old val
+        :return: True if successful, False otherwise
+        """
+        if hasattr(self, field):
+            setattr(self, field, val)
+            return True
+        return False
 
     def __repr__(self):
         return self.__str__()
