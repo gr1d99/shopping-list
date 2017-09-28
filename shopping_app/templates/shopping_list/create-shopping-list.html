@@ -11,6 +11,18 @@
 
             <form class="form-horizontal" method="post" action="{{ url_for('create-shopping-list') }}">
                 <div class="form-group">
+                    {% with shl_name_errors = form.name.errors  %}
+                                 {% if shl_name_errors %}
+                                     <ul class="list-unstyled">
+                                         {% for error in shl_name_errors %}
+                                             <li class="form-error">
+                                                 <small>{{ error }}</small>
+                                             </li>
+                                         {% endfor %}
+                                     </ul>
+                                 {% endif %}
+                                 {{ form.item_name }}
+                             {% endwith %}
                     {{ form.name }}
                 </div>
                 <input type="submit" class="btn btn-success btn-block" value="Create Shopping List"/>
