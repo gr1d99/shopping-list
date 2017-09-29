@@ -5,6 +5,13 @@
 Is a flask powered web application that allows users to keep track of their shopping items and also allows a user to 
 share the shopping lists with others, this web application also allows you to mark items that you have already 
 
+## Getting Started
+
+## Prerequisites
+
+- Python3 [Installation](https://www.python.org/downloads/)
+- Git [Installation](https://git-scm.com/downloads)
+
 ## Usage
 > 1. Clone this repo `git clone https://github.com/gr1d99/shopping-list.git`
 > 2. Change your current directory to `shopping-list`
@@ -30,8 +37,11 @@ share the shopping lists with others, this web application also allows you to ma
 > > - view created shopping list and its items.
 > > - mark and un-mark shopping items.
 
+## Running the tests
 
-**NB:** This application has no database yet!.
+```bash
+ $ py.test tests/*
+```
 
 Screenshots
 ===========
