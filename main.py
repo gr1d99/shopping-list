@@ -1,5 +1,6 @@
 """where flask instace is created"""
 
+import waitress
 import os
 from flask import Flask
 from shopping_app.db.models import User, ShoppingItem
@@ -52,4 +53,4 @@ APP.secret_key = os.environ.get('SECRET_KEY')
 
 
 if __name__ == '__main__':
-    APP.run()
+    waitress.serve(APP)
