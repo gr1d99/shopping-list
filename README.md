@@ -35,12 +35,19 @@ share the shopping lists with others, this web application also allows you to ma
 
 Screenshots
 ===========
->## Home Page
->![Home Page](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/homepage.png)
+> ## Signup Page
+>![Signup](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/signup.png)
 
->## Dashboard
->![Dashboard](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/dashboard.png)
+> ## Login Page
+>![Login](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/login.png)
 
->## Sign in
->![Sign in](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/signin.png)
+> ## Home Page
+> >![Home Page](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/index.png)
+
+> ## Dashboard 
+> >![Dashboard](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/dashboardd.png)
+
+> ## View Items Page
+>![Items Page](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/itemsdashbord.png)
+
 
