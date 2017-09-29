@@ -8,7 +8,7 @@
 
     <div class="col-md-12">
 
-    <div class="panel panel-default">
+    <div class="panel panel-success">
         <div class="panel-heading">
             <h5><span><i class="fa fa-list"></i></span> {{ obj.get('name') }}</h5>
         </div>
@@ -17,7 +17,7 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Needs to buy</th>
+                    <th>Bought</th>
                     <th>Item</th>
                     <th>Quantity</th>
                     <th>Price</th>
@@ -30,20 +30,6 @@
                     <tr>
                         <td>
                             <input type="checkbox" class="checkbox" {% if item.checked %} checked {% endif %}/>
-                            <br>
-
-                        <form method="post" action="{{ url_for('mark-item') }}">
-                                <input type="hidden" name="shl-name" value="{{ obj.get('name') }}"/>
-                                <input type="hidden" name="item-name" value="{{ item.name }}"/>
-                                <input type="hidden" name="prev-val" value="{{ item.checked }}"/>
-                                <button type="submit" class="btn  btn-info btn-xs">
-                                    {% if item.checked %}
-                                        <span><i class="fa fa-times"></i> </span>UnMark item
-                                    {% else %}
-                                        <span><i class="fa fa-check"></i> </span>Mark item
-                                    {% endif %}
-                                </button>
-                            </form>
                         </td>
                         <td>{{ item.name }} </td>
                         <td>{{ item.quantity }}</td>

@@ -2,27 +2,23 @@
 
 {% block content %}
 <div class="container index">
-    <div class="panel panel-default index-panel">
-        <div class="jumbotron">
-            <div class="panel-heading">
-                <h2 class="text-center">Shopping List App</h2>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="text-primary text-center">A minimal web application allows you to create, view, update and delete shopping lists.</p>
-                        <p class="text-primary text-center"><small class="lead">In addition the web application allows you to mark shopping items that are already attended to</small></p>
-                        <div class="text-center">
-                            {% if is_auth %}
-                                <p><a class="btn btn-sm btn-primary" href="{{ url_for('dashboard') }}">Get Started</a></p>
-                            {% else %}
-                                <p><a class="btn btn-sm btn-success" href="{{ url_for('register') }}">Register or Login to get Started</a></p>
-                            {% endif %}
-                        </div>
-                    </div>
+    <div class="row jumbotron">
+        <div class="col-lg-12">
+            <div class="jumbotron">
+                <h1 class="text-center">Shopping List App</h1>
             </div>
         </div>
+
+        <div class="col-md-6 col-sm-offset-3 text-center">
+            <div class="text-center">
+                {% if is_auth %}
+                    <p><a class="btn btn-lg btn-success" href="{{ url_for('dashboard') }}">Get Started  <i class="fa fa-arrow-right"></i> </a></p>
+                {% else %}
+                    <p><a class="btn btn-lg btn-primary" href="{{ url_for('register') }}"><span><i class="fa fa-bell"></i> </span>Register or Login to get Started</a></p>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>
+
 {% endblock content %}

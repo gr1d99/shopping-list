@@ -1,20 +1,26 @@
-from wtforms import Form, DecimalField, IntegerField, StringField, PasswordField, validators, ValidationError
+"""Contains all needed forms"""
+
+from wtforms import (Form, DecimalField, IntegerField, StringField,
+                     PasswordField, validators, BooleanField)
 from wtforms.validators import DataRequired, InputRequired
-from .utils.helpers import check_duplicate_item_name
 
 
 class LoginForm(Form):
+    """For to handle login"""
     username = StringField('username', validators=[DataRequired()])
     password = PasswordField('password', validators=[DataRequired()])
 
 
 class CreateShoppingItemForm(Form):
+    """A form to handle creation of shopping items"""
     item_name = StringField('item-name', validators=[InputRequired()])
     quantity = IntegerField('quantity', validators=[InputRequired()])
     price = DecimalField('price', validators=[InputRequired()])
+    checked = BooleanField('checked')
 
 
 class RegistrationForm(Form):
+    """A form to handle registration of users"""
     username = StringField('Username', [validators.Length(min=3, max=25)])
     email = StringField('Email Address', [validators.Length(min=6, max=35)])
     password = PasswordField('New Password', [
@@ -26,4 +32,5 @@ class RegistrationForm(Form):
 
 
 class CreateShoppingListForm(Form):
+    """A form to handle creation of shopping list"""
     name = StringField('name', validators=[InputRequired()])

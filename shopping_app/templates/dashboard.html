@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container" xmlns="http://www.w3.org/1999/html">
     <div class="dashboard">
-        <div class="panel panel-primary">
+        <div class="panel panel-success">
 
             <div class="panel-heading">
                 <span class="fa fa-dashboard"></span> {{ username|capitalize }} Dashboard
@@ -11,7 +11,7 @@
 
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-lg-6 col-sm-offset-3">
+                    <div class="col-lg-8 col-sm-offset-2">
 
                         <div>
 
@@ -25,6 +25,7 @@
                                 <div role="tabpanel" class="tab-pane fade in active" id="dashboard">
 
                                     <div class="">
+                                    {% if shopping_lists %}
                                         <table class="table table-bordered">
                                             <caption>My Shopping lists <span class="badge">{{ shopping_lists|count }}</span></caption>
                                             <thead>
@@ -40,7 +41,7 @@
                                                 <tr>
                                                     <td>#{{ loop.index }}</td>
                                                     <td>{{ shl.get('name') }}</td>
-                                                    <td>{{ shl.get('date_added') }}</td>
+                                                    <td>{{ shl.get('shl').date_added }}</td>
                                                     <td>
                                                         <span class="shl-view">
                                                             <a class="btn btn-default btn-xs" href="{{ url_for('shopping-list-detail', name=shl.get('name')) }}">
@@ -64,6 +65,11 @@
                                             {% endfor %}
                                             </tbody>
                                         </table>
+                                    {% else %}
+                                        <div class="well">
+                                            <p class="text-center">You do not have any shopping lists yet, create some using the link below.</p>
+                                        </div>
+                                    {% endif %}
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4 col-sm-offset-4">

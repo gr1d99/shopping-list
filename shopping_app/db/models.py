@@ -1,21 +1,29 @@
-import datetime
-from .base import BaseUser, UserDb
+"""Contains User, ShoppingList and ShoppingItem classes"""
+
+from .base import BaseUser
 from ..core.exceptions import UserDoesNotExist
 
 
 class User(BaseUser):
-    """User Model"""
+    """Creates a user instance"""
 
     def __init__(self):
         super(User, self).__init__()
         self.users = []
 
     def create_user(self, username, password, email):
+        """creates user instance by calling private method"""
         self.users.append(self._create_user(username, password, email))
 
     def check_user(self, username):
         for user in self.users:
             if getattr(user, 'username') == username:
+                return True
+        return False
+
+    def check_email(self, email):
+        for user in self.users:
+            if getattr(user, 'email') == email:
                 return True
         return False
 
@@ -37,6 +45,7 @@ class User(BaseUser):
 
 
 class ShoppingItem(object):
+    """hold shopping item details"""
     def __init__(self):
         self.name = None
         self.quantity = None
@@ -86,7 +95,7 @@ class ShoppingItem(object):
 
 
 class ShoppingList(object):
-    """Shopping List class"""
+    """Store shopping list details including shopping items instance"""
 
     def __init__(self):
         self.name = None
@@ -95,6 +104,7 @@ class ShoppingList(object):
         self.items = []
 
     def create(self, name, added_by, date_added):
+        """validates arguments and creates an instance"""
         if not isinstance(name, str):
             raise TypeError("Expected %(name)s to be an instance of `%(ins)s`" % dict(name=name, ins=str.__name__))
 

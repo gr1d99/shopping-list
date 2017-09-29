@@ -1,4 +1,8 @@
+"""contains main user classes with special methods"""
+
+
 class UserDb(object):
+    """Contain User details"""
     def __init__(self):
         self.username = None
         self.password = None
@@ -12,10 +16,13 @@ class UserDb(object):
 
 
 class BaseUser(object):
+    """
+    Handles validation and saving of user details
+    """
     def __init__(self):
-        self.db = UserDb()
+        self.user = UserDb()
 
-    def _validate_email(self, email):  # thanks Django
+    def _validate_email(self, email):
         """lowercase the domain part"""
         email = email or ''
         try:
@@ -33,10 +40,15 @@ class BaseUser(object):
         return self.save(username=username, password=password, email=clean_email)
 
     def save(self, **details):
+        """
+        create an instance of user details
+        :param details: keyword arguments
+        :return: user instance
+        """
         username = details.pop('username')
         password = details.pop('password')
         email = details.pop('email')
-        self.db.username = username
-        self.db.password = password
-        self.db.email = email
-        return self.db
+        self.user.username = username
+        self.user.password = password
+        self.user.email = email
+        return self.user

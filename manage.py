@@ -1,15 +1,20 @@
+"""Management module to allow addition of custom commands"""
+
 from flask_script import Manager
-from main import app
+from main import APP
 from shopping_app.utils.helpers import secret_key_gen
 
-manager = Manager(app)
+MANAGER = Manager(APP)
 
 
-@manager.command
+@MANAGER.command
 def generate_secret():
+    """
+    generate random secret
+    :return: random text
+    """
     secret_key_gen()
 
 
 if __name__ == "__main__":
-    manager.run()
-
+    MANAGER.run()

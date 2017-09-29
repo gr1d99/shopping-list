@@ -4,16 +4,20 @@
 
     <div class="container">
         <div class="">
-            <div class="col-md-4 col-sm-offset-4">
+            <div class="col-md-8 col-sm-offset-2">
                 <h3 class="page-header text-center">Update {{ name }} shopping list</h3>
                 <br/>
-                <form method="post" class="form-horizontal text-center well" action="">
+                <div class="thumbnail">
+
+                    <form method="post" class="form-horizontal text-center well" action="">
                     <div class="form-group">
                         {{ form.name }}
                     </div>
 
                     <button type="submit" class="btn btn-primary">Change Name</button>
                 </form>
+
+                </div>
             </div>
         </div>
     </div>
