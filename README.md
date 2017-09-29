@@ -5,8 +5,6 @@
 Is a flask powered web application that allows users to keep track of their shopping items and also allows a user to 
 share the shopping lists with others, this web application also allows you to mark items that you have already 
 
-## Getting Started
-
 ## Prerequisites
 
 - Python3 [Installation](https://www.python.org/downloads/)
@@ -38,6 +36,8 @@ share the shopping lists with others, this web application also allows you to ma
 > > - mark and un-mark shopping items.
 
 ## Running the tests
+
+All tests are located in the root of the project in a folder named `tests`.
 
 ```bash
  $ py.test tests/*
