@@ -47,7 +47,7 @@ class CreateShoppingItemForm(Form):
 class RegistrationForm(Form):
     """A form to handle registration of users"""
     username = StringField('Username', [validators.Length(min=3, max=25)])
-    email = StringField('Email Address', [validators.Length(min=6, max=35)])
+    email = StringField('Email Address', [validators.Email(), validators.Length(min=6, max=35)])
     password = PasswordField('New Password', [
         validators.DataRequired(),
         validators.EqualTo('confirm', message='Passwords must match'),
