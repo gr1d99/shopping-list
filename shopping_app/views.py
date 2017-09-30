@@ -357,4 +357,4 @@ class AboutView(View):
     methods = ['GET']
 
     def dispatch_request(self):
-        return render_template('flatpages/about.html', title='Abou')
+        return render_template('flatpages/about.html', title='About')
