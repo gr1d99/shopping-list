@@ -18,5 +18,7 @@ $(document).ready(function () {
     $('li.form-error').addClass('text-danger');
 });
 
+
+
 document.getElementById('username').placeholder = 'Username';
 document.getElementById('password').placeholder = 'Password';
