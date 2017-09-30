@@ -35,3 +35,6 @@ ul.items{
 .table th, .table td {
     border: 1px !important;
 }
+div#action{
+  width: 100px;
+}
