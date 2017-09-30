@@ -25,6 +25,7 @@ share the shopping lists with others, this web application also allows you to ma
 > $ export SECRET_KEY=<generated key goes here>
 > ```
 > **DEBUG** is set to `True` but you may change it.
+> 
 > 7. Finally deploy your web app by running the command `python manage.py runserver` 
 >  The app does not have much functionality. What you can do for now is
 > > - Register
@@ -49,15 +50,15 @@ Screenshots
 >![Signup](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/signup.png)
 
 > ## Login Page
->![Login](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/login.png)
+> ![Login](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/login.png)
 
 > ## Home Page
-> >![Home Page](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/index.png)
+> ![Home Page](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/index.png)
 
 > ## Dashboard 
-> >![Dashboard](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/dashboardd.png)
+> ![Dashboard](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/dashboardd.png)
 
 > ## View Items Page
->![Items Page](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/itemsdashbord.png)
+> ![Items Page](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/itemsdashbord.png)
 
 
