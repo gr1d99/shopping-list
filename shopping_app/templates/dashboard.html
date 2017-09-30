@@ -43,23 +43,21 @@
                                                     <td>{{ shl.get('name') }}</td>
                                                     <td>{{ shl.get('shl').date_added }}</td>
                                                     <td>
-                                                        <span class="shl-view">
-                                                            <a class="btn btn-default btn-xs" href="{{ url_for('shopping-list-detail', name=shl.get('name')) }}">
-                                                                <i class="fa fa-eye text-info"></i>
-                                                            </a>
-                                                        </span>
-                                                        <span class="shl-edit">
-                                                            <a class="btn btn-default btn-xs" href="{{ url_for('update-shopping-list', name=shl.get('name')) }}">
-                                                                <i class="fa fa-pencil text-info"></i>
-                                                            </a>
-                                                        </span>
-                                                        <span class="shl-delete">
-                                                            <a href="{{ url_for('remove-shopping-list', name=shl.get('name') ) }}">
-                                                                <span>
-                                                                    <i class="fa fa-trash text-danger"></i>
-                                                                </span></a>
-                                                        </span>
-
+                                                        <div class="ui compact selection dropdown" id="action">
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="text">Action</div>
+                                                            <div class="menu">
+                                                                <a class="item" href="{{ url_for('shopping-list-detail', name=shl.get('name')) }}">
+                                                                    <i class="fa fa-eye text-info"></i> <small>view</small>
+                                                                </a>
+                                                                <a class="item" href="{{ url_for('update-shopping-list', name=shl.get('name')) }}">
+                                                                    <i class="fa fa-pencil text-info"></i> <small>edit</small>
+                                                                </a>
+                                                                <a class="item" href="{{ url_for('remove-shopping-list', name=shl.get('name') ) }}">
+                                                                    <i class="fa fa-trash text-danger"></i> <small>delete</small>
+                                                                </a>
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             {% endfor %}
@@ -75,17 +73,13 @@
                                         <div class="col-md-4 col-sm-offset-4">
 
                                         <div class="thumbnail text-center add-new-list">
-                                            <label class="label label-default">
-                                                <a href="{{ url_for('create-shopping-list') }}"><span><i class="fa fa-plus"></i> </span> Add new list</a>
-                                            </label>
+                                            <a class="ui green basic button" href="{{ url_for('create-shopping-list') }}"><span><i class="fa fa-plus"></i> </span> Add new list</a>
                                         </div>
 
                                     </div>
                                     </div>
 
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade" id="messages">...</div>
-                                <div role="tabpanel" class="tab-pane fade" id="settings">...</div>
                             </div>
 
                             </div>
