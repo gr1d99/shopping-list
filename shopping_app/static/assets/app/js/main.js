@@ -16,6 +16,7 @@ $(document).ready(function () {
     $('form ul').addClass('list-unstyled');
     $('form ul li').addClass('form-error');
     $('li.form-error').addClass('text-danger');
+    $('.ui.dropdown').dropdown();
 });
 
 
