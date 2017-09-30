@@ -245,12 +245,13 @@ class UpdateShoppingListView(View):
 
         if request.method == 'POST':
             form = CreateShoppingListForm(request.form)
-            new_name = form.name.data
-            shl = get_shl(name)
-            shl.get('shl').update('name', new_name)
-            change_shl_name(name, new_name)
-            flash(u'Shopping list name changed successfully', 'success')
-            return redirect(url_for('dashboard'))
+            if form.validate():
+                new_name = form.name.data
+                shl = get_shl(name)
+                shl.get('shl').update('name', new_name)
+                change_shl_name(name, new_name)
+                flash(u'Shopping list name changed successfully', 'success')
+                return redirect(url_for('dashboard'))
 
         return render_template('shopping_list/shopping-list-edit.html', form=form, name=name)
 
@@ -304,19 +305,20 @@ class UpdateShoppingItemView(View):
 
         if request.method == 'POST':
             form = CreateShoppingItemForm(request.form)
-            new_item_name = form.item_name.data
-            new_quantity = int(form.quantity.data)
-            new_price = float(form.price.data)
-            checked = form.checked.data
+            if form.validate():
+                new_item_name = form.item_name.data
+                new_quantity = int(form.quantity.data)
+                new_price = float(form.price.data)
+                checked = form.checked.data
 
-            item = get_item(name, item_name)
-            if item:
-                item.update('name', new_item_name)
-                item.update('quantity', new_quantity)
-                item.update('price', new_price)
-                item.update('checked', checked)
-                flash(u'Item successfully updated', 'success')
-                return redirect(url_for('shopping-list-detail', name=name))
+                item = get_item(name, item_name)
+                if item:
+                    item.update('name', new_item_name)
+                    item.update('quantity', new_quantity)
+                    item.update('price', new_price)
+                    item.update('checked', checked)
+                    flash(u'Item successfully updated', 'success')
+                    return redirect(url_for('shopping-list-detail', name=name))
 
         return render_template('shopping_list/shopping-item-edit.html', form=form,
                                item_name=item_name, is_auth=is_auth,
