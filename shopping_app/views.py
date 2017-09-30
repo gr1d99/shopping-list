@@ -207,10 +207,7 @@ class ShoppingListDetailView(View):
 
         if request.method == 'POST':
             form = CreateShoppingItemForm(request.form)
-            if not form.validate():
-                flash(u'Please correct the errors below', 'warning')
-
-            else:
+            if form.validate():
                 shl_item = main.APP.shopping_item()
                 item_name = form.item_name.data
 
@@ -224,6 +221,8 @@ class ShoppingListDetailView(View):
                     shl.get('shl').items.append(shl_item)
                     flash(u'Item successfully added', 'success')
                     return redirect(url_for('shopping-list-detail', name=name))
+
+                flash(u'Please correct the errors below', 'warning')
 
         return render_template(
             'shopping_list/shopping-list-detail.html',
