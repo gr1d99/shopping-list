@@ -7,17 +7,28 @@
             <div class="col-md-8 col-sm-offset-2">
                 <h3 class="page-header text-center">Update {{ name }} shopping list</h3>
                 <br/>
-                <div class="thumbnail">
 
-                    <form method="post" class="form-horizontal text-center well" action="">
-                    <div class="form-group">
+                {% with shl_name_errors = form.name.errors  %}
+                {% if shl_name_errors %}
+                    <ul class="list-unstyled">
+                        {% for error in shl_name_errors %}
+                            <li class="form-error">
+                                <small>{{ error }}</small>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endwith %}
+
+            <form class="form-inline" method="post" action="">
+                <div class="form-group">
+                    <div class="ui input">
                         {{ form.name }}
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Change Name</button>
-                </form>
-
                 </div>
+                <input type="submit" class="ui green button" value="Update Shopping List"/>
+            </form>
+
             </div>
         </div>
     </div>

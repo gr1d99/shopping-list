@@ -20,10 +20,51 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>{{ form.item_name }}</td>
-                    <td>{{ form.quantity }}</td>
-                    <td>{{ form.price }}</td>
-                    <td>{{ form.checked }}</td>
+                    <td>
+                        {% with name_errors = form.item_name.errors  %}
+                            {% if name_errors %}
+                            <ul class="list-unstyled">
+                                {% for error in name_errors %}
+                                    <li class="form-error">
+                                        <small>{{ error }}</small>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        {% endwith %}
+                        {{ form.item_name }}
+                    </td>
+                    <td>
+                        {% with quantity_errors = form.quantity.errors  %}
+                            {% if quantity_errors %}
+                            <ul class="list-unstyled">
+                                {% for error in quantity_errors %}
+                                    <li class="form-error">
+                                        <small>{{ error }}</small>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        {% endwith %}
+                        {{ form.quantity }}
+                    </td>
+                    <td>
+                        {% with price_errors = form.price.errors  %}
+                            {% if price_errors %}
+                            <ul class="list-unstyled">
+                                {% for error in price_errors %}
+                                    <li class="form-error">
+                                        <small>{{ error }}</small>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        {% endwith %}
+                        {{ form.price }}
+                    </td>
+                    <td>
+                        {{ form.checked }}
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="3">
