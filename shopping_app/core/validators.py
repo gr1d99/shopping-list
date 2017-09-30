@@ -5,7 +5,7 @@ import string
 from wtforms import ValidationError
 
 
-BAD_CHARS = (c for c in string.punctuation)  # bad characters generator
+BAD_CHARS = list(string.punctuation)  # list all punctuations
 
 
 def validate_names(form, field):
@@ -16,7 +16,7 @@ def validate_names(form, field):
     :return:
     """
     data = field.data
-    data_list = list(data)  # list supplied data so that it allows the use of `in` statement
-    for pun in BAD_CHARS:  # iterate over bad characters
-        if pun in data_list:  # check if punctuation is in supplied data
+    user_data = (char for char in data)  # submitted data generator
+    for char in user_data:  # iterate over each character
+        if char in BAD_CHARS:  # check if each character is in punctuation list
             raise ValidationError("%(data)s is an invalid name" % dict(data=data))
