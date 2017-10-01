@@ -2,7 +2,7 @@
 
 
 import unittest
-from model.user import User
+from shopping_app.db.user import User
 
 
 class TestUser(unittest.TestCase):

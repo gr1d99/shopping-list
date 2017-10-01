@@ -1,9 +1,9 @@
 import unittest
-from shopping_app.db.models import ShoppingItem, ShoppingList, User
+from shopping_app.db.shopping_list.shopping import ShoppingItem, ShoppingList
 
 
 class TestShoppingItem(unittest.TestCase):
-    """This test case will test the User model class"""
+    """This test case will test the Shopping Item model class"""
 
     def setUp(self):
         self.item = ShoppingItem()
@@ -12,7 +12,9 @@ class TestShoppingItem(unittest.TestCase):
     def test_item_creation(self):
         some_item = self.item
         items = self.items
-        status = some_item.create(items.pop('name'), items.pop('quantity'), items.pop('price'), items.pop('checked'))
+        status = some_item.create(items.pop('name'),
+                                  items.pop('quantity'),
+                                  items.pop('price'), items.pop('checked'))
         self.assertTrue(status)
 
     def test_update_method(self):

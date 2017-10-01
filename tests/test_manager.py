@@ -1,8 +1,8 @@
 """Test all managers"""
 
 import unittest
-from model.managers.manager import UserManager
-from model.user import User
+from shopping_app.db.managers.manager import UserManager
+from shopping_app.db.user import User
 
 
 class TestUserManager(unittest.TestCase):
@@ -71,3 +71,7 @@ class TestUserManager(unittest.TestCase):
             password=user_details.pop('password')
         )
         self.assertTrue(user.verify_password('gideonpassword'))
+
+
+if __name__ == '__main__':
+    unittest.main()
