@@ -73,7 +73,7 @@ This app can be deployed on [Heroku](https://www.heroku.com/what) cloud.
 > - The A-TEAM members(both week one and week two team)
 > - All candidates.
 
-### demo
+### Demo
 > [Shopping List App](http://gideonshoppingapp.herokuapp.com/)
 
 ## Screenshots
