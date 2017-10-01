@@ -3,7 +3,8 @@
 import waitress
 import os
 from flask import Flask
-from shopping_app.db.models import User, ShoppingItem
+from shopping_app.db.shopping_list.shopping import ShoppingItem
+from shopping_app.db.managers.manager import UserManager
 from shopping_app.views import (AboutView, IndexView, CreateShoppingListView,
                                 DashboardView, UpdateShoppingListView,
                                 LoginView, LogoutView, RegisterView,
@@ -15,7 +16,7 @@ BASEDIR = os.path.dirname(os.path.abspath(__file__))
 APP = Flask(__name__)
 APP.template_folder = os.path.join(BASEDIR, 'shopping_app/templates')
 APP.static_folder = os.path.join(BASEDIR, 'shopping_app/static')
-APP.users = User()  # user instance
+APP.user_manager = UserManager()  # user manager instance
 APP.registered_users = []
 APP.shopping_item = ShoppingItem  # initialize shopping item
 APP.shopping_list = []  # create an empty list that will hold shopping list instances

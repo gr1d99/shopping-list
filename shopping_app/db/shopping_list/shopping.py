@@ -1,48 +1,5 @@
 """Contains User, ShoppingList and ShoppingItem classes"""
 
-from .base import BaseUser
-from ..core.exceptions import UserDoesNotExist
-
-
-class User(BaseUser):
-    """Creates a user instance"""
-
-    def __init__(self):
-        super(User, self).__init__()
-        self.users = []
-
-    def create_user(self, username, password, email):
-        """creates user instance by calling private method"""
-        self.users.append(self._create_user(username, password, email))
-
-    def check_user(self, username):
-        for user in self.users:
-            if getattr(user, 'username') == username:
-                return True
-        return False
-
-    def check_email(self, email):
-        for user in self.users:
-            if getattr(user, 'email') == email:
-                return True
-        return False
-
-    def get_user(self, username):
-        if not self.check_user(username):
-            raise UserDoesNotExist
-
-        for user in self.users:
-            if getattr(user, 'username') == username:
-                return user
-
-    def validate_user(self, username, password):
-        try:
-            user = self.get_user(username)
-            if user.password == password:
-                return True
-        except UserDoesNotExist:
-            return False
-
 
 class ShoppingItem(object):
     """hold shopping item details"""

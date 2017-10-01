@@ -1,38 +1,73 @@
+"""Contains all tests for the User class"""
+
+
 import unittest
-from shopping_app.core.exceptions import UserDoesNotExist
-from shopping_app.db.models import User
+from model.user import User
 
 
 class TestUser(unittest.TestCase):
-    """A class to test user class"""
+    """Tests all initial attributes and methods"""
+
     def setUp(self):
-        self.db = User()
-        self.user_details = {'username': 'Gideon', 'password': 'password123', 'email': ''}
+        """initialize User class and make it available to the test class"""
+        self.user = User()
 
-    def test_user_creation(self):
+    def test_has_username_field(self):
         """
-        test whether the user is created
-        :return: True
+        assert whether User class has attribute USERNAME_FIELD
+        :return:
         """
-        self.db.create_user(
-            self.user_details.get('username'),
-            self.user_details.get('password'),
-            self.user_details.get('email')
-        )
-        self.assertTrue(self.db.check_user(self.user_details.get('username')))
+        self.assertTrue(hasattr(self.user, 'USERNAME_FIELD'))
 
-    def test_user_who_doesnt_exist(self):
-        """test whether an exception is raised when user does not exist"""
-        self.assertRaises(UserDoesNotExist, self.db.get_user, 'anon')
+    def test_has_email_field(self):
+        """
+        assert if User class has attribute EMAIL_FIELD
+        :return:
+        """
+        self.assertTrue(hasattr(self.user, 'EMAIL_FIELD'))
 
-    def test_user_validation(self):
-        self.db.create_user(
-            self.user_details.get('username'),
-            self.user_details.get('password'),
-            self.user_details.get('email')
-        )
-        self.assertFalse(self.db.validate_user('admin', '123'))  # a user who does not exist
-        self.assertTrue(self.db.validate_user('Gideon', 'password123'))  # test user who exists
+    def test_has_password_field(self):
+        """
+        assert if User class has PASSWORD_FIELD
+        :return:
+        """
+        self.assertTrue(hasattr(self.user, 'PASSWORD_FIELD'))
+
+    def test_username_default_is_none(self):
+        """
+        assert if User instance attribute username default value is None
+        :return:
+        """
+        self.assertTrue(getattr(self.user, self.user.USERNAME_FIELD) is None)
+
+    def test_email_default_is_none(self):
+        """
+        assert if User instance attribute email default value is None
+        :return:
+        """
+        self.assertTrue(getattr(self.user, self.user.EMAIL_FIELD) is None)
+
+    def test_password_default_is_none(self):
+        """
+        assert if User instance attribute password default value is None
+        :return:
+        """
+        self.assertTrue(getattr(self.user, self.user.PASSWORD_FIELD) is None)
+
+    def test_username_is_none(self):
+        """
+        assert get_username method returns a None
+        :return:
+        """
+        self.assertIsNone(self.user.get_username)
+
+    def test_get_email_is_none(self):
+        """
+        assert get_email method returns a None
+        :return:
+        """
+        self.assertIsNone(self.user.get_email)
+
 
 if __name__ == '__main__':
     unittest.main()
