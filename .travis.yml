@@ -4,7 +4,6 @@ python:
   - 3.6.2
 script:
   - nosetests --with-coverage
-  - py.test --cov=shopping_app tests/*
 after_success:
   - codeclimate-test-reporter
   - coveralls
