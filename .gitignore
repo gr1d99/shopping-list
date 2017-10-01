@@ -5,4 +5,4 @@ env
 .coverage
 secret.txt
 htmlcov
-.cache
+.cache*

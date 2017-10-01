@@ -210,7 +210,7 @@ class ShoppingListDetailView(View):
         if request.method == 'POST':
             form = CreateShoppingItemForm(request.form)
             if form.validate():
-                shl_item = main.APP.shopping_item
+                shl_item = main.APP.shopping_item()
                 item_name = form.item_name.data
 
                 if check_duplicate_item_name(name, item_name):

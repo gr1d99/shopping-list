@@ -18,7 +18,7 @@ APP.template_folder = os.path.join(BASEDIR, 'shopping_app/templates')
 APP.static_folder = os.path.join(BASEDIR, 'shopping_app/static')
 APP.user_manager = UserManager()  # user manager instance
 APP.registered_users = []
-APP.shopping_item = ShoppingItem()  # initialize shopping item
+APP.shopping_item = ShoppingItem  # initialize shopping item
 APP.shopping_list = []  # create an empty list that will hold shopping list instances
 
 # app urls
