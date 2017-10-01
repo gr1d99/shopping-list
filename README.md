@@ -27,25 +27,56 @@ share the shopping lists with others, this web application also allows you to ma
 > **DEBUG** is set to `True` but you may change it.
 > 
 > 7. Finally deploy your web app by running the command `python manage.py runserver` 
->  The app does not have much functionality. What you can do for now is
-> > - Register
-> > - Login
-> > - create/retrieve/update and delete shopping lists through the dashboard.
-> > - create/retrieve/update and delete shopping items.
-> > - add shopping items to a shopping list.
-> > - view created shopping list and its items.
-> > - mark and un-mark shopping items.
+
+> **The app does not have much functionality. What you can do for now is**
+> - _Create an account_
+> - _Login_
+> - _create/retrieve/update and delete shopping lists through the dashboard._
+> - _create/retrieve/update and delete shopping items._
+> - _add shopping items to a shopping list._
+> - _view created shopping list and its items._
+> - _mark and un-mark shopping items._
+
+
 
 ## Running the tests
 
 All tests are located in the root of the project in a folder named `tests`.
 
-```bash
- $ py.test tests/*
-```
+> ### [nose](http://nose.readthedocs.io/en/latest/testing.html)
+> Test the project using nose and view coverage report on your terminal
+> ```bash
+>  $ nosetests --with-coverage
+> ```
 
-Screenshots
-===========
+## Deployment
+This app can be deployed on [Heroku](https://www.heroku.com/what) cloud.
+
+> ### deploy on heroku with git
+> **NB**_**if you do not have any expirience with heroku kindly [start here](https://devcenter.heroku.com/articles/getting-started-with-python#introduction) to get some basics**_
+> 1. create an [account](https://signup.heroku.com/) on heroku.
+> 2. read this [article](https://devcenter.heroku.com/articles/git) and use it as a reference.
+
+> ## Built with
+> 1. [Flask](http://flask.pocoo.org/)
+
+> ## Authors
+> Gideon Kimutai
+
+> ## License
+> This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+
+> ## Acknowledgments
+> - Andela Kenya
+> - Boot-camp LFAs
+> - The A-TEAM members(both week one and week two team)
+> - All candidates.
+
+> ### demo
+> [Shopping List App](http://gideonshoppingapp.herokuapp.com/)
+
+## Screenshots
 > ## Signup Page
 >![Signup](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/signup.png)
 
