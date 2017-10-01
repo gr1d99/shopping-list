@@ -53,7 +53,7 @@ All tests are located in the root of the project in a folder named `tests`.
 This app can be deployed on [Heroku](https://www.heroku.com/what) cloud.
 
 > ### deploy on heroku with git
-> **NB**_**if you do not have any expirience with heroku kindly [start here](https://devcenter.heroku.com/articles/getting-started-with-python#introduction) to get some basics**_
+> _**if you do not have any expirience with heroku kindly [start here](https://devcenter.heroku.com/articles/getting-started-with-python#introduction) to get some basics**_
 > 1. create an [account](https://signup.heroku.com/) on heroku.
 > 2. read this [article](https://devcenter.heroku.com/articles/git) and use it as a reference.
 
