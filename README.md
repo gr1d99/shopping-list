@@ -57,23 +57,23 @@ This app can be deployed on [Heroku](https://www.heroku.com/what) cloud.
 > 1. create an [account](https://signup.heroku.com/) on heroku.
 > 2. read this [article](https://devcenter.heroku.com/articles/git) and use it as a reference.
 
-> ## Built with
+## Built with
 > 1. [Flask](http://flask.pocoo.org/)
 
-> ## Authors
+## Authors
 > Gideon Kimutai
 
-> ## License
+## License
 > This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 
-> ## Acknowledgments
+## Acknowledgments
 > - Andela Kenya
 > - Boot-camp LFAs
 > - The A-TEAM members(both week one and week two team)
 > - All candidates.
 
-> ### demo
+### demo
 > [Shopping List App](http://gideonshoppingapp.herokuapp.com/)
 
 ## Screenshots
