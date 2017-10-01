@@ -5,10 +5,11 @@ import datetime
 import main
 from flask import flash, redirect, render_template, request, session, url_for
 from flask.views import View
-from .db.models import ShoppingList
+from .db.shopping_list.shopping import ShoppingList
 from .forms import (CreateShoppingItemForm, CreateShoppingListForm, LoginForm, RegistrationForm)
 from .utils.helpers import (check_name, get_shl, check_duplicate_item_name,
-                            change_shl_name, check_item, get_item)
+                            change_shl_name, check_item, get_item, check_username,
+                            check_email, get_user)
 
 
 class RegisterView(View):
@@ -35,10 +36,10 @@ class RegisterView(View):
 
                 errors = []
 
-                if not main.APP.users.check_user(username):  # check username is already taken
-                    if not main.APP.users.check_email(email):  # check if email is taken
-                        main.APP.users.create_user(username, password1, email)
-
+                if not check_username(username):  # check username is already taken
+                    if not check_email(email):  # check if email is taken
+                        user = main.APP.user_manager.create_user(username, email, password1)
+                        main.APP.registered_users.append(user)
                         flash(u'Success! you may now login using '
                               u'your username and password', 'success')
                         return redirect(url_for('index'))
@@ -73,13 +74,14 @@ class LoginView(View):
             if form.validate():
                 username = form.username.data
                 password = form.password.data
+                user = get_user(username)
+                if user is not False:
+                    if user.verify_password(password):
+                        session['user'] = username
+                        flash(u'Success!! you are now logged in', 'success')
+                        return redirect(url_for('index'))
 
-                if main.APP.users.validate_user(username, password):
-                    session['user'] = username
-                    flash(u'Success!! you are now logged in', 'success')
-                    return redirect(url_for('index'))
-
-                flash('username or password is incorrect', 'warning')
+                flash(u'incorrect username or password', 'info')
 
         return render_template('login.html', form=form, title='Login')
 
