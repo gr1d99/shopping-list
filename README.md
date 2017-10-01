@@ -77,19 +77,32 @@ This app can be deployed on [Heroku](https://www.heroku.com/what) cloud.
 > [Shopping List App](http://gideonshoppingapp.herokuapp.com/)
 
 ## Screenshots
-> ## Signup Page
->![Signup](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/signup.png)
 
-> ## Login Page
-> ![Login](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/login.png)
+## About page
+> ![Signup](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/0.png)
 
-> ## Home Page
-> ![Home Page](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/index.png)
+## Home page before login
+![Home 1](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/1.png)
 
-> ## Dashboard 
-> ![Dashboard](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/dashboardd.png)
+## Signup Page
+>![Signup](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/2.png)
 
-> ## View Items Page
-> ![Items Page](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/itemsdashbord.png)
+## Login Page
+> ![Login](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/3.png)
+
+## Home Page after login
+> ![Home 2](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/4.png)
+
+## Create Shopping List 
+> ![Create Shopping List](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/5.png)
+
+## Dashboard 
+> ![Dashboard](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/6.png)
+
+## View Shopping List
+![View Shopping List](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/7.png)
+
+## Edit Shopping Item
+![Edit Shoppping Item](https://github.com/gr1d99/shopping-list/blob/challenge-1/screenshots/8.png)
 
 
