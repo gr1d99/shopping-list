@@ -28,7 +28,7 @@ share the shopping lists with others, this web application also allows you to ma
 > 
 > 7. Finally deploy your web app by running the command `python manage.py runserver` 
 
-> **The app does not have much functionality. What you can do for now is**
+>  **The app does not have much functionality. What you can do for now is**
 > - _Create an account_
 > - _Login_
 > - _create/retrieve/update and delete shopping lists through the dashboard._
