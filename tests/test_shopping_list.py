@@ -1,4 +1,5 @@
 import unittest
+from main import APP
 from shopping_app.db.shopping_list.shopping import ShoppingItem, ShoppingList
 
 
@@ -71,6 +72,3 @@ class TestShoppingList(unittest.TestCase):
         some_list = ShoppingList()
         some_list.create('Grocery', 'Gideon', '19-09-2017')
         self.assertRaises(TypeError, some_list.add_items, 'some item')
-
-if __name__ == '__main__':
-    unittest.main()
