@@ -112,21 +112,21 @@ def change_shl_name(name, new_name):
 
 
 def check_username(username):
-    for user in main.APP.registered_users:
+    for user in main.APP_USERS:
         if user.get_username == username:
             return True
     return False
 
 
 def check_email(email):
-    for user in main.APP.registered_users:
+    for user in main.APP_USERS:
         if user.get_username == email:
             return True
     return False
 
 
 def get_user(username):
-    for user in main.APP.registered_users:
+    for user in main.APP_USERS:
         if user.get_username == username:
             return user
     return False
