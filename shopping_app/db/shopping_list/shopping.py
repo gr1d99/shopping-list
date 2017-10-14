@@ -66,7 +66,8 @@ class ShoppingList(object):
             raise TypeError("Expected %(name)s to be an instance of `%(ins)s`" % dict(name=name, ins=str.__name__))
 
         if not isinstance(added_by, str):
-            raise TypeError("Expected %(added_by)s to be an instance of `%(ins)s`" % dict(added_by=added_by, ins=str.__name__))
+            raise TypeError("Expected %(added_by)s to be an instance of `%(ins)s`"
+                            % dict(added_by=added_by, ins=str.__name__))
 
         if not isinstance(date_added, str):
             raise TypeError("Expected %(date_added)s to be an instance of `%(ins)s`"
@@ -89,8 +90,7 @@ class ShoppingList(object):
                     raise TypeError("Expected %(item)s to be an instance of `%(ins)s" %
                                     dict(item=item, ins=ShoppingItem.__name__))
                 self.items.append(item)
-                return True
-            return
+            return True
         return
 
     def update(self, field, val):
@@ -110,4 +110,3 @@ class ShoppingList(object):
 
     def __str__(self):
         return "<%(name)s obj>" % dict(name=self.name)
-
