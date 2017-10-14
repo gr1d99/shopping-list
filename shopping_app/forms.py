@@ -1,7 +1,7 @@
 """Contains all needed forms"""
 
 from wtforms import (Form, DecimalField, IntegerField, StringField,
-                     PasswordField, validators, BooleanField, ValidationError)
+                     PasswordField, validators, BooleanField)
 from wtforms.validators import DataRequired, InputRequired
 from .core.validators import validate_names
 
