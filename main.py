@@ -1,4 +1,4 @@
-"""where flask instace is created"""
+"""where flask instance is created"""
 
 import waitress
 import os
