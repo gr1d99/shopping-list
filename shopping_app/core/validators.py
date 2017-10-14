@@ -11,9 +11,6 @@ BAD_CHARS = list(string.punctuation)  # list all punctuations
 def validate_names(form, field):
     """
     Validate punctuation characters
-    :param form:
-    :param field:
-    :return:
     """
     data = field.data
     user_data = (char for char in data)  # submitted data generator
