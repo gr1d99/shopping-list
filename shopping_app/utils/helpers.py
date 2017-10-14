@@ -120,7 +120,7 @@ def check_username(username):
 
 def check_email(email):
     for user in main.APP_USERS:
-        if user.get_username == email:
+        if user.get_email == email:
             return True
     return False
 
