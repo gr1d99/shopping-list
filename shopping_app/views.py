@@ -39,7 +39,7 @@ class RegisterView(View):
                 if not check_username(username):  # check username is already taken
                     if not check_email(email):  # check if email is taken
                         user = main.APP.user_manager.create_user(username, email, password1)
-                        main.APP.registered_users.append(user)
+                        main.APP_USERS.insert(0, user)
                         flash(u'Success! you may now login using '
                               u'your username and password', 'success')
                         return redirect(url_for('index'))
