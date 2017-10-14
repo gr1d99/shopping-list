@@ -95,8 +95,8 @@ class LogoutView(View):
     def dispatch_request(self):
         if 'user' in session:
             session.pop('user')
-            flash(u'successfully logged out!', 'success')
             return redirect(url_for('index'))
+        flash(u'successfully logged out!', 'success')
         return redirect(url_for('index'))
 
 
@@ -332,6 +332,15 @@ class RemoveShoppingListView(View):
     methods = ['GET', ]
 
     def dispatch_request(self):
+        is_auth = False
+
+        if 'user' not in session:  # check if user is logged in
+            flash('you must be logged in, or create an account if you dont have one')
+            return redirect(url_for('login'))
+
+        if 'user' in session:
+            is_auth = True
+
         name = request.args.get('name')
         shl = get_shl(name)
         main.APP.shopping_list.remove(shl)
@@ -344,6 +353,16 @@ class RemoveShoppingItemView(View):
     methods = ['GET', 'POST']
 
     def dispatch_request(self):
+
+        is_auth = False
+
+        if 'user' not in session:  # check if user is logged in
+            flash('you must be logged in, or create an account if you dont have one')
+            return redirect(url_for('login'))
+
+        if 'user' in session:
+            is_auth = True
+
         name = request.args.get('name')
         item_name = request.args.get('item_name')
         shl_items = get_shl(name).get('shl').items
