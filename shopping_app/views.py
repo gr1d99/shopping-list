@@ -1,6 +1,6 @@
 """This module contains all necessary views to power up shopping list web application"""
 
-import datetime
+import time
 
 import main
 from flask import flash, redirect, render_template, request, session, url_for
@@ -163,7 +163,7 @@ class CreateShoppingListView(View):
                 # check if shopping list name exists
                 if not check_name(name):
                     user = session.get('user')
-                    today = datetime.datetime.now().strftime("%Y-%m-%w")
+                    today = time.strftime("%x")
                     shl = ShoppingList()
                     shl.create(name, user, today)
                     main.APP.shopping_list.append({'name': name, 'shl': shl})
@@ -204,8 +204,6 @@ class ShoppingListDetailView(View):
             return redirect(url_for('dashboard'))
 
         shl = get_shl(name)
-        for item in shl.get('shl').items:
-            print(item, item.total_price)
 
         if request.method == 'POST':
             form = CreateShoppingItemForm(request.form)
