@@ -1,4 +1,6 @@
-from .test_base import ShoppingListTestBase
+"""Tests ShoppingList and ShoppingItem through views"""
+
+from .base import ShoppingListTestBase
 
 
 class TestShoppingListThroughViews(ShoppingListTestBase):
@@ -27,8 +29,9 @@ class TestShoppingListThroughViews(ShoppingListTestBase):
         with self.client as client:
 
             #  login user
-            login_resp = client.post('/login', data=dict(username=self.user_cridentials.get('username'),
-                                                         password=self.user_cridentials.get('password')))
+            login_resp = client.post('/login',
+                                     data=dict(username=self.user_cridentials.get('username'),
+                                               password=self.user_cridentials.get('password')))
 
             self.assertRedirects(login_resp, '/')  # assert if user is redirected to index page
 
@@ -80,8 +83,9 @@ class TestShoppingListThroughViews(ShoppingListTestBase):
         with self.client as client:
 
             #  login user
-            login_resp = client.post('/login', data=dict(username=self.user_cridentials.get('username'),
-                                                         password=self.user_cridentials.get('password')))
+            login_resp = client.post('/login',
+                                     data=dict(username=self.user_cridentials.get('username'),
+                                               password=self.user_cridentials.get('password')))
 
             self.assertRedirects(login_resp, '/')  # assert if user is redirected to index page
 
@@ -91,7 +95,8 @@ class TestShoppingListThroughViews(ShoppingListTestBase):
                                                     follow_redirects=True)
 
             self.assert200(create_shopping_list_resp)
-            self.assertIn(bytes(shopping_list_name.encode('ascii')), create_shopping_list_resp.data)
+            self.assertIn(bytes(shopping_list_name.encode('ascii')),
+                          create_shopping_list_resp.data)
             self.assertMessageFlashed('Shopping list created', 'success')
 
             # create shopping item
@@ -105,31 +110,35 @@ class TestShoppingListThroughViews(ShoppingListTestBase):
             view_shopping_list_resp = client.get('/shopping-list-detail/?name=%(name)s'
                                                  % dict(name=shopping_list_name))
             self.assertIn(bytes(shopping_item_one.
-                                get('item_name').encode('ascii')), view_shopping_list_resp.data)
+                                get('item_name').encode('ascii')),
+                          view_shopping_list_resp.data)
             self.assertIn(bytes(shopping_item_two.
-                                get('item_name').encode('ascii')), view_shopping_list_resp.data)
+                                get('item_name').encode('ascii')),
+                          view_shopping_list_resp.data)
             self.assertMessageFlashed('Item successfully added', 'success')
 
             # update shopping item
             # update `shopping item one` name
             new_item_name = 'Chicken wings'
 
-            update_shopping_item_resp = client.post('/update-item/?sname=%(sname)s&iname=%(iname)s' %
-                                                    dict(sname=shopping_list_name,
-                                                         iname=shopping_item_one.get('item_name')),
-                                                    data=dict(item_name=new_item_name,
-                                                              quantity=shopping_item_one.get('quantity'),
-                                                              price=shopping_item_one.get('price')),
-                                                    follow_redirects=True)
+            update_shopping_item_resp = \
+                client.post('/update-item/?sname=%(sname)s&iname=%(iname)s' %
+                            dict(sname=shopping_list_name,
+                                 iname=shopping_item_one.get('item_name')),
+                            data=dict(item_name=new_item_name,
+                                      quantity=shopping_item_one.get('quantity'),
+                                      price=shopping_item_one.get('price')),
+                            follow_redirects=True)
 
             self.assertMessageFlashed('Item successfully updated', 'success')
             self.assertIn(bytes(new_item_name.encode('ascii')), update_shopping_item_resp.data)
 
             # delete shopping item
             # delete `shopping_item_two`
-            del_response = client.get('/remove-shopping-item/?name=%(sname)s&item_name=%(iname)s' %
-                                      dict(sname=shopping_list_name, iname=shopping_item_two.get('item_name')),
-                                      follow_redirects=True)
+            del_response = \
+                client.get('/remove-shopping-item/?name=%(sname)s&item_name=%(iname)s' %
+                           dict(sname=shopping_list_name, iname=shopping_item_two.get('item_name')),
+                           follow_redirects=True)
 
             self.assertMessageFlashed('Success!! Item succesfully removed', 'success')
             self.assertTrue(bytes(shopping_item_two.get('item_name').encode('ascii'))
@@ -144,7 +153,8 @@ class TestShoppingListThroughViews(ShoppingListTestBase):
             # attempt to delete a shopping list
             del_response = client.get('/remove-shopping-item/?name=HomeComings&item_name=Pizza',
                                       follow_redirects=True)
-            self.assertMessageFlashed('you must be logged in, or create an account if you dont have one')
+            self.assertMessageFlashed('you must be logged in, '
+                                      'or create an account if you dont have one')
 
             # login user
             client.post('/login', data=dict(username=self.user_cridentials.get('username'),
