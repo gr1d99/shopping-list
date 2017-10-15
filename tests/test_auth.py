@@ -2,7 +2,7 @@
 This module contains User and Views authentication tests
 """
 
-from .test_base import ShoppingListTestBase
+from .base import ShoppingListTestBase
 
 
 class TestUserAuth(ShoppingListTestBase):
@@ -31,7 +31,7 @@ class TestUserAuth(ShoppingListTestBase):
                                                   password='emmapassword',
                                                   confirm='emmapassword'),
                            follow_redirects=True)  # create a new user by triggering post method
-        self.assertIn(b'Success! you may now login using your username and password', resp.data)
+        self.assertMessageFlashed('Success! you may now login using your username and password', 'success')
 
     def test_user_login(self):
         """
@@ -52,8 +52,9 @@ class TestUserAuth(ShoppingListTestBase):
 
         self.assertRedirects(resp, '/')
         # lets just check if the same user can access the dashboard after login
-        self.assertIn(b'you must be logged in, or create an account if you dont have one',
-                      self.client.get('/dashboard', follow_redirects=True).data)
+        dashboard_resp = self.client.get('/dashboard')
+        self.assertMessageFlashed('you must be logged in, or create an account if you dont have one', 'warning')
+        self.assertRedirects(dashboard_resp, '/login')  # user redirected to login page
 
     def test_duplicate_username(self):
         """
@@ -62,8 +63,7 @@ class TestUserAuth(ShoppingListTestBase):
         resp = self.client.post('/register', data=dict(username='gideon',
                                                        email='gideon@gmail.com',
                                                        password='password12',
-                                                       confirm='password12'),
-                                follow_redirects=True)
+                                                       confirm='password12'))
         self.assertIn(b'gideon already taken', resp.data)
 
     def test_duplicate_email(self):
@@ -81,7 +81,7 @@ class TestUserAuth(ShoppingListTestBase):
                            follow_redirects=True)
 
         error_message = '%(email)s already taken' % dict(email=duplicate_email)
-        self.assertIn(bytes(error_message.encode('ascii')),  resp.data)
+        self.assertIn(bytes(error_message.encode('ascii')), resp.data)
 
     def test_after_login(self):
         """
@@ -93,7 +93,9 @@ class TestUserAuth(ShoppingListTestBase):
                         data=dict(username='gideon', password='password12'),
                         follow_redirects=True)
 
-            reg_resp = client.get('/register', follow_redirects=True)
-            login_resp = client.get('/login', follow_redirects=True)
+            reg_response = client.get('/register')
+            login_response = client.get('/login')
 
-            self.assertIn(b'you are already logged in!', reg_resp.data, login_resp.data)
+            self.assertMessageFlashed('you are already logged in!', 'info')
+            self.assertRedirects(reg_response, '/')
+            self.assertRedirects(login_response, '/')
