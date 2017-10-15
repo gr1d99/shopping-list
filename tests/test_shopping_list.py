@@ -1,5 +1,4 @@
 import unittest
-from main import APP
 from shopping_app.db.shopping_list.shopping import ShoppingItem, ShoppingList
 
 

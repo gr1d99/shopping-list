@@ -1,5 +1,6 @@
 """Tests ShoppingList and ShoppingItem through views"""
 
+import unittest
 from .base import ShoppingListTestBase
 
 

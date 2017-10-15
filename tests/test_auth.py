@@ -2,6 +2,7 @@
 This module contains User and Views authentication tests
 """
 
+import unittest
 from .base import ShoppingListTestBase
 
 

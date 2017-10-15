@@ -73,7 +73,3 @@ class TestUserManager(unittest.TestCase):
             password=user_details.pop('password')
         )
         self.assertTrue(user.verify_password('gideonpassword'))
-
-
-if __name__ == '__main__':
-    unittest.main()
