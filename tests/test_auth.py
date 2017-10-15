@@ -2,141 +2,100 @@
 This module contains User and Views authentication tests
 """
 
-import unittest
-from main import APP
+from .base import ShoppingListTestBase
 
 
-class TestBase(unittest.TestCase):
+class TestUserAuth(ShoppingListTestBase):
     """
-    Base test class
+        Test case that covers user registration, login, logout.
+        it also tests if usernames and emails are already used.
     """
+
     def setUp(self):
-        """Create instances and objects that will be used by the tests"""
-        APP.testing = True
-        APP.debug = False
-        APP.secret_key = '123E33R44F4T4T'
-        self.app = APP
-        user_details = {  # a dictionary corresponding to the form fields
-            'username': 'user100',
-            'email': 'gideonkimutai9@gmail.com',
-            'password': 'user100password',
-            'confirm': 'user100password',
-        }
-        self.user_details = user_details
+        super(TestUserAuth, self).setUp()
+        client = self.app.test_client()
+        client.post('/register', data=dict(username='gideon',
+                                           email='gideon@gmail.com',
+                                           password='password12',
+                                           confirm='password12'),
+                    follow_redirects=True)
+        self.client = client
 
-    def register(self, **options):
+    def test_user_registration(self):
         """
-        a helper method that posts user details
-        :param options: dictionary of user details
-        :return: response
+        Test if user is registered successfully
         """
-        return self.app.test_client().post('/register',
-                                           data=dict(options),
-                                           follow_redirects=True)
+        client = self.app.test_client()
+        resp = client.post('/register', data=dict(username='emma',
+                                                  email='emma@gmail.com',
+                                                  password='emmapassword',
+                                                  confirm='emmapassword'),
+                           follow_redirects=True)  # create a new user by triggering post method
+        self.assertMessageFlashed('Success! you may now login using your username and password', 'success')
 
-    def login(self, **cridentials):
+    def test_user_login(self):
         """
-        a helper method to post user login cridentials
-        ad return a response
-        :param cridentials: username and password
-        :return: response
+        tests if user logins successfully after registering
         """
-        return self.app.test_client().post('/login',
-                                           data=dict(cridentials),
-                                           follow_redirects=True)
+        # we will use the cridentials used to register new user
+        # in setUp method
+        resp = self.client.post('/login',
+                                data=dict(username='gideon', password='password12'))
 
-    def logout(self):
+        self.assertRedirects(resp, '/')
+
+    def test_user_logout(self):
         """
-        A helper method to logout users
+            tests if user is successfully logged out
         """
-        return self.app.test_client().get('/logout', follow_redirects=True)
+        resp = self.client.get('/logout')
 
+        self.assertRedirects(resp, '/')
+        # lets just check if the same user can access the dashboard after login
+        dashboard_resp = self.client.get('/dashboard')
+        self.assertMessageFlashed('you must be logged in, or create an account if you dont have one', 'warning')
+        self.assertRedirects(dashboard_resp, '/login')  # user redirected to login page
 
-class TestUserAuth(TestBase):
-    """Test case that covers user registration and login and logout"""
-
-    def test_user_authentication(self):
-
+    def test_duplicate_username(self):
         """
-        tests if user registers logins and logouts successfully.
-            - we should get a status code of 200 ok
-            - we should also follow redirect after registration and login so
-            that we can check for success messages is in the returned data
-
+            test if it will throw an error if username is reused
         """
+        resp = self.client.post('/register', data=dict(username='gideon',
+                                                       email='gideon@gmail.com',
+                                                       password='password12',
+                                                       confirm='password12'))
+        self.assertIn(b'gideon already taken', resp.data)
 
-        # ----------------> START OF USER REGISTRATION <--------------- #
-        reg_resp = self.register(username=self.user_details.get('username'),
-                                 email=self.user_details.get('email'),
-                                 password=self.user_details.get('password'),
-                                 confirm=self.user_details.get('confirm'))
-
-        self.assertEqual(reg_resp.status_code, 200)
-        self.assertIn(b'Success! you may now login using your username and password', reg_resp.data)
-        # ---------------> END OF USER REGISTRATION <------------------ #
-
-        # --------------> START OF USER LOGIN <----------- #
-        login_resp = self.login(username=self.user_details.get('username'),
-                                password=self.user_details.get('password'))
-        self.assertEqual(login_resp.status_code, 200)
-        self.assertIn(b'Success!! you are now logged in', login_resp.data)
-        # --------------> END OF USER LOGIN <------------- #
-
-        # --------------> START OF USER LOGOUT <-----------#
-        logout_resp = self.logout()
-        self.assertIn(b'successfully logged out!', logout_resp.data)
-        # --------------> END OF USER LOGOUT <-----------#
-
-
-class TestViewsAuthentication(TestBase):
-    """
-    test class to test if views requiring user authentication
-    are properly handles un-authenticated requests
-    """
-    def test_views_authentication(self):
+    def test_duplicate_email(self):
         """
-        test for views that require user authentication
+            test if an error will be thrown if the same email is reused by
+            another user
         """
+        client = self.app.test_client()
+        duplicate_email = 'gideon@gmail.com'  # use the same email as the
+        # one used in setUp method
+        resp = client.post('/register', data=dict(username='giddy',
+                                                  email=duplicate_email,
+                                                  password='password12',
+                                                  confirm='password12'),
+                           follow_redirects=True)
 
-        # assign responses to each request sent to a specific url
-        dashboard = self.app.test_client().get('/dashboard')
-        create_shopping_list = self.app.test_client().\
-            get('create-shopping-list')
-        shopping_list_detail = self.app.test_client().\
-            get('/shopping-list-detail/?name=birthday')
-        remove_shopping_list = self.app.test_client().\
-            get('/remove-shopping-list?name=birthday')
-        remove_shopping_item = self.app.test_client().\
-            get('/remove-shopping-item?name=birthday-item')
-        update_shopping_list = self.app.test_client().\
-            get('/update-item?name=birthday-item')
-        update_shopping_item = self.app.test_client().\
-            get('/update-shopping-list?name=birthday-item')
+        error_message = '%(email)s already taken' % dict(email=duplicate_email)
+        self.assertIn(bytes(error_message.encode('ascii')), resp.data)
 
-        # Dashboard view
-        self.assertIn(b'Redirecting...', dashboard.data)
-        self.assertTrue(dashboard.status_code == 302)
+    def test_after_login(self):
+        """
+        Test if user can still access registration and login views
+        :return:
+        """
+        with self.client as client:
+            client.post('/login',
+                        data=dict(username='gideon', password='password12'),
+                        follow_redirects=True)
 
-        # CreateShoppingList view
-        self.assertIn(b'Redirecting...', create_shopping_list.data)
-        self.assertTrue(create_shopping_list.status_code == 302)
+            reg_response = client.get('/register')
+            login_response = client.get('/login')
 
-        # ShoppingListDetail view
-        self.assertIn(b'Redirecting...', shopping_list_detail.data)
-        self.assertTrue(shopping_list_detail.status_code == 302)
-
-        # RemoveShoppingList view
-        self.assertIn(b'Redirecting...', remove_shopping_list.data)
-        self.assertTrue(remove_shopping_list.status_code == 302)
-
-        # RemoveShoppingItem view
-        self.assertIn(b'Redirecting...', remove_shopping_item.data)
-        self.assertTrue(remove_shopping_item.status_code == 302)
-
-        # UpdateShoppingList view
-        self.assertIn(b'Redirecting...', update_shopping_list.data)
-        self.assertTrue(update_shopping_list.status_code == 302)
-
-        # UpdateShoppingItem view
-        self.assertIn(b'Redirecting...', update_shopping_item.data)
-        self.assertTrue(update_shopping_item.status_code == 302)
+            self.assertMessageFlashed('you are already logged in!', 'info')
+            self.assertRedirects(reg_response, '/')
+            self.assertRedirects(login_response, '/')
