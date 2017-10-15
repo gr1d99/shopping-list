@@ -58,12 +58,14 @@ class TestUserManager(unittest.TestCase):
     def test_hash_password(self):
         """
         test if the hashed password is equal to raw password
-        :return:
         """
         password = 'password'
         self.assertNotEqual(self.manager.hash_password(password), password)
 
     def test_verify_password(self):
+        """
+        test if hashed password verifies with provided raw password
+        """
         user_details = self.user_details
         user = self.manager.create_user(
             username=user_details.pop('username'),
