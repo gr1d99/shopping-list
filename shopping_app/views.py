@@ -124,7 +124,7 @@ class DashboardView(View):
         username = None
 
         if 'user' not in session:  # check if user is logged in
-            flash('you must be logged in, or create an account if you dont have one')
+            flash('you must be logged in, or create an account if you dont have one', 'warning')
             return redirect(url_for('login'))
 
         if 'user' in session:
