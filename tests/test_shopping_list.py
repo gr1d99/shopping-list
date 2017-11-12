@@ -8,7 +8,7 @@ class TestShoppingItem(unittest.TestCase):
     def setUp(self):
         """called before each test is run"""
         self.item = ShoppingItem()
-        self.items = {'name': 'Grocery', 'quantity': 10, 'price': 10.0, 'checked': True}
+        self.items = {'name': 'Grocery', 'quantity': 10.9, 'price': 10.0, 'checked': True}
 
     def test_item_creation(self):
         """
@@ -39,8 +39,8 @@ class TestShoppingItem(unittest.TestCase):
         """
         some_item = self.item
         items = self.items
-        some_item.create(items.pop('name'), 10, 100.00, items.pop('checked'))
-        self.assertEqual(some_item.total_price, 1000.00)
+        some_item.create(items.pop('name'), 10.8, 100.00, items.pop('checked'))
+        self.assertEqual(some_item.total_price, 1080.00)
 
 
 class TestShoppingList(unittest.TestCase):
@@ -78,7 +78,7 @@ class TestShoppingList(unittest.TestCase):
     def test_add_items(self):
         """test if items are successfully added to the shopping list"""
         some_item = ShoppingItem()
-        some_item.create('Vegetable', 10, 10.0, True)
+        some_item.create('Vegetable', 10.7, 10.0, True)
         some_list = ShoppingList()
         some_list.create('Grocery', 'Gideon', '19-09-2017')
         self.assertTrue(some_list.add_items(some_item))
