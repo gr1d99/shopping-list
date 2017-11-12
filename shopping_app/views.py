@@ -78,7 +78,7 @@ class LoginView(View):
                 if user is not False:
                     if user.verify_password(password):
                         session['user'] = username
-                        flash(u'Success!! you are now logged in', 'success')
+                        flash(u'login successful', 'success')
                         return redirect(url_for('index'))
 
                 flash(u'incorrect username or password', 'info')
@@ -217,7 +217,7 @@ class ShoppingListDetailView(View):
                 else:
                     item_quantity = form.quantity.data
                     item_price = form.price.data
-                    shl_item.create(item_name, int(item_quantity), float(item_price), False)
+                    shl_item.create(item_name, float(item_quantity), float(item_price), False)
                     shl.get('shl').items.append(shl_item)
                     flash(u'Item successfully added', 'success')
                     return redirect(url_for('shopping-list-detail', name=name))
@@ -307,7 +307,7 @@ class UpdateShoppingItemView(View):
             form = CreateShoppingItemForm(request.form)
             if form.validate():
                 new_item_name = form.item_name.data
-                new_quantity = int(form.quantity.data)
+                new_quantity = float(form.quantity.data)
                 new_price = float(form.price.data)
                 checked = form.checked.data
 
