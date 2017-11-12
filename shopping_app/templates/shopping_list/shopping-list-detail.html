@@ -14,6 +14,7 @@
         </div>
 
         <div class="panel-body">
+        <hr/>
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -61,6 +62,7 @@
                          <td></td>
                          <td colspan="">
                              {% with item_name_errors = form.item_name.errors  %}
+                                 {{ form.item_name }}
                                  {% if item_name_errors %}
                                      <ul class="list-unstyled">
                                          {% for error in item_name_errors %}
@@ -70,11 +72,11 @@
                                          {% endfor %}
                                      </ul>
                                  {% endif %}
-                                 {{ form.item_name }}
                              {% endwith %}
                          </td>
                          <td colspan="">
                              {% with quantity_errors = form.quantity.errors  %}
+                                 {{ form.quantity }}
                                  {% if quantity_errors %}
                                      <ul class="list-unstyled">
                                          {% for error in quantity_errors %}
@@ -84,12 +86,12 @@
                                          {% endfor %}
                                      </ul>
                                  {% endif %}
-                                 {{ form.quantity }}
                              {% endwith %}
                          </td>
 
                          <td colspan="">
                              {% with price_errors = form.price.errors  %}
+                                 {{ form.price }}
                                  {% if price_errors %}
                                      <ul class="list-unstyled">
                                          {% for error in price_errors %}
@@ -99,7 +101,6 @@
                                          {% endfor %}
                                      </ul>
                                  {% endif %}
-                                 {{ form.price }}
                              {% endwith %}
                          </td>
 
