@@ -15,7 +15,7 @@ class LoginForm(Form):
 class CreateShoppingItemForm(Form):
     """A form to handle creation of shopping items"""
     item_name = StringField('item-name', validators=[validate_names, InputRequired()])
-    quantity = IntegerField('quantity', validators=[InputRequired()])
+    quantity = DecimalField('quantity', validators=[InputRequired()])
     price = DecimalField('price', validators=[InputRequired()])
     checked = BooleanField('checked')
 
