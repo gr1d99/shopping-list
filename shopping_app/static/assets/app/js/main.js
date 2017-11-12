@@ -17,7 +17,10 @@ $('form ul li').addClass('form-error');
 $('li.form-error').addClass('text-danger');
 $('.ui.dropdown').dropdown();
 
-
+// form validation.
+document.getElementById('username').setAttribute('data-validation', 'length alphanumeric');
+document.getElementById('username').setAttribute('data-validation-length', 'min4');
+document.getElementById('email').setAttribute('data-validation', 'email');
 
 document.getElementById('username').placeholder = 'Username';
 document.getElementById('password').placeholder = 'Password';
