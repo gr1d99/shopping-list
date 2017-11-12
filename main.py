@@ -21,6 +21,7 @@ APP.shopping_item = ShoppingItem  # initialize shopping item
 APP.shopping_list = []  # create an empty list that will hold shopping list instances
 APP_USERS = []
 
+
 # app urls
 APP.add_url_rule('/',
                  view_func=IndexView.as_view('index'))
